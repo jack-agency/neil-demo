@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide de démo prospect — 60 min</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #ffffff;
+  --gray-50: #fafafa;
+  --gray-200: #e5e5e5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-900: #171717;
+  --green: #3a786c;
+  --green-light: #e8f5f1;
+  --green-border: #c4e0d8;
+  --purple: #6b33b3;
+  --purple-light: #f3edfb;
+  --purple-border: #d8c8ee;
+  --orange: #b37a2a;
+  --orange-light: #fef6e8;
+  --orange-border: #eedcb4;
+  --blue: #3a6c96;
+  --blue-light: #eaf2f8;
+  --blue-border: #b8d4e8;
+  --red: #b33a3a;
+  --red-light: #fde8e8;
+  --red-border: #ecc6c6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--white); color: var(--gray-900); }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0 24px;
+}
+.nav-inner { display: flex; align-items: center; gap: 16px; height: 52px; }
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
+.nav-logo img { height: 26px; }
+.nav-sep { width: 1px; height: 18px; background: var(--gray-200); }
+.nav-title { font-size: 13px; font-weight: 600; color: var(--gray-500); }
+.nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.nav-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--green-light); border: 1px solid var(--green-border);
+  color: var(--green); font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+}
+.nav-dataset {
+  font-size: 11px; font-weight: 500; color: var(--gray-400);
+  background: var(--gray-50); border: 1px solid var(--gray-200);
+  padding: 3px 10px; border-radius: 20px;
+}
+
+/* PROGRESS BAR */
+.progress-bar {
+  display: flex; gap: 2px; padding: 0 24px 10px;
+  background: rgba(255,255,255,0.96);
+  border-bottom: 1px solid var(--gray-200);
+  position: sticky; top: 52px; z-index: 99;
+}
+.progress-seg {
+  height: 3px; border-radius: 2px;
+  background: var(--gray-200);
+  cursor: pointer; transition: background 0.2s;
+}
+.progress-seg:hover { opacity: 0.7; }
+.progress-seg.active { background: var(--green); }
+
+/* LAYOUT */
+.layout { display: flex; }
+.sidebar {
+  width: 220px; flex-shrink: 0;
+  position: sticky; top: 87px;
+  height: calc(100vh - 87px);
+  overflow-y: auto; border-right: 1px solid var(--gray-200);
+  padding: 16px 10px;
+  scrollbar-width: none;
+}
+.sidebar::-webkit-scrollbar { display: none; }
+.sidebar-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--gray-400);
+  padding: 0 8px 10px; display: block;
+}
+.sidebar-link {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 7px 8px; border-radius: 8px;
+  font-size: 12px; font-weight: 500; color: var(--gray-500);
+  text-decoration: none; cursor: pointer;
+  transition: all 0.15s; margin-bottom: 1px;
+}
+.sidebar-link:hover { background: var(--gray-50); color: var(--gray-900); }
+.sidebar-link.active { background: var(--green-light); color: var(--green); font-weight: 600; }
+.sidebar-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  margin-top: 4px; flex-shrink: 0;
+}
+.sidebar-time { font-size: 10px; color: var(--gray-400); margin-left: auto; flex-shrink: 0; }
+
+/* MAIN */
+main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
+.content-inner { max-width: 760px; }
+
+/* PAGE HEADER */
+.page-header { margin-bottom: 36px; }
+.page-header h1 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+.page-header p { font-size: 14px; color: var(--gray-500); line-height: 1.6; max-width: 560px; }
+.page-header .meta { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+
+/* BADGE */
+.badge {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 12px; border-radius: 20px; border: 1px solid;
+}
+.badge-green { background: var(--green-light); border-color: var(--green-border); color: var(--green); }
+.badge-purple { background: var(--purple-light); border-color: var(--purple-border); color: var(--purple); }
+.badge-orange { background: var(--orange-light); border-color: var(--orange-border); color: var(--orange); }
+.badge-blue { background: var(--blue-light); border-color: var(--blue-border); color: var(--blue); }
+.badge-red { background: var(--red-light); border-color: var(--red-border); color: var(--red); }
+.badge-gray { background: var(--gray-50); border-color: var(--gray-200); color: var(--gray-500); }
+
+/* SECTION */
+.demo-section { margin-bottom: 40px; scroll-margin-top: 120px; }
+.section-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px; cursor: pointer;
+  user-select: none;
+}
+.section-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; flex-shrink: 0;
+}
+.section-header-text { flex: 1; }
+.section-header-text h2 { font-size: 17px; font-weight: 800; }
+.section-header-text .section-sub {
+  font-size: 12px; color: var(--gray-400); margin-top: 2px;
+}
+.section-timing {
+  font-size: 11px; font-weight: 600; padding: 3px 10px;
+  border-radius: 6px; flex-shrink: 0;
+}
+.section-chevron {
+  width: 16px; height: 16px; color: var(--gray-300);
+  transition: transform 0.2s; flex-shrink: 0;
+}
+.section-body { }
+.demo-section.collapsed .section-body { display: none; }
+.demo-section:not(.collapsed) .section-chevron { transform: rotate(90deg); }
+
+/* ENTITY (card) */
+.entity {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: 14px; padding: 20px 24px; margin-bottom: 12px;
+}
+.entity-head { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+.entity-icon { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.45; margin-top: 1px; }
+.entity-head-text h3 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.entity-head-text p { font-size: 12px; color: var(--gray-500); line-height: 1.5; }
+
+/* NAV PATH (breadcrumb) */
+.nav-path {
+  display: flex; align-items: center; gap: 5px;
+  flex-wrap: wrap; margin-bottom: 14px;
+}
+.nav-path span {
+  background: var(--gray-50); border: 1px solid var(--gray-200);
+  padding: 2px 9px; border-radius: 5px;
+  font-size: 11px; font-weight: 500; color: var(--gray-500);
+}
+.nav-path .arrow { color: var(--gray-300); font-size: 10px; font-weight: 400; }
+.nav-path .url {
+  background: var(--blue-light); border-color: var(--blue-border);
+  color: var(--blue); font-family: monospace; font-size: 10px;
+}
+
+/* STEPS */
+.steps { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.step { display: flex; gap: 10px; align-items: flex-start; }
+.step-num {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+}
+.step-num-green { background: var(--green-light); color: var(--green); border: 1px solid var(--green-border); }
+.step-num-purple { background: var(--purple-light); color: var(--purple); border: 1px solid var(--purple-border); }
+.step-num-orange { background: var(--orange-light); color: var(--orange); border: 1px solid var(--orange-border); }
+.step-num-blue { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-border); }
+.step-text { font-size: 13px; color: var(--gray-500); line-height: 1.65; flex: 1; }
+.step-text strong { color: var(--gray-900); font-weight: 600; }
+.step-tip { display: block; font-style: italic; color: var(--gray-400); font-size: 11px; margin-top: 3px; }
+.step-action {
+  display: block; margin-top: 4px;
+  font-size: 11px; font-weight: 600; color: var(--green);
+}
+
+/* CALLOUTS */
+.callout {
+  border-radius: 12px; padding: 14px 18px;
+  font-size: 13px; line-height: 1.7;
+  margin-bottom: 12px;
+}
+.callout strong { font-weight: 600; }
+.callout-green {
+  background: var(--green-light); border: 1px solid var(--green-border);
+  border-left: 3px solid var(--green); color: var(--gray-900);
+}
+.callout-green strong { color: var(--green); }
+.callout-purple {
+  background: var(--purple-light); border: 1px solid var(--purple-border);
+  border-left: 3px solid var(--purple); color: var(--gray-900);
+}
+.callout-purple .label { font-weight: 700; color: var(--purple); font-size: 11px; letter-spacing: 0.5px; display: block; margin-bottom: 4px; }
+.callout-orange {
+  background: var(--orange-light); border: 1px solid var(--orange-border);
+  border-left: 3px solid var(--orange); color: var(--gray-900);
+}
+.callout-blue {
+  background: var(--blue-light); border: 1px solid var(--blue-border);
+  border-left: 3px solid var(--blue); color: var(--gray-900);
+}
+.callout-blue strong { color: var(--blue); }
+
+/* WOW block */
+.wow {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--green-light); border: 1px solid var(--green-border);
+  border-radius: 12px; padding: 14px 18px; margin-bottom: 12px;
+}
+.wow-icon { font-size: 18px; flex-shrink: 0; }
+.wow-body { }
+.wow-label { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 3px; }
+.wow-text { font-size: 13px; color: var(--gray-900); line-height: 1.6; font-style: italic; }
+
+/* VERSUS */
+.versus { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.versus-card { border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; }
+.versus-head { padding: 10px 14px; font-size: 12px; font-weight: 700; }
+.versus-head-green { background: var(--green-light); color: var(--green); }
+.versus-head-blue { background: var(--blue-light); color: var(--blue); }
+.versus-body { padding: 12px 14px; }
+.versus-point { font-size: 12px; color: var(--gray-500); margin-bottom: 5px; padding-left: 12px; position: relative; }
+.versus-point::before { content: "→"; position: absolute; left: 0; color: var(--gray-300); }
+.versus-examples { margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--gray-200); }
+.versus-example { font-size: 11px; font-style: italic; margin-bottom: 3px; }
+.versus-example-green { color: var(--green); }
+.versus-example-blue { color: var(--blue); }
+
+/* DATASET block */
+.dataset {
+  background: var(--orange-light); border: 1px solid var(--orange-border);
+  border-radius: 12px; padding: 14px 18px; margin-bottom: 12px;
+}
+.dataset-title { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
+.dataset-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+.dataset-row { display: flex; gap: 6px; font-size: 12px; }
+.dataset-key { font-weight: 600; color: var(--orange); flex-shrink: 0; }
+.dataset-val { color: var(--gray-500); }
+
+/* QUESTIONS */
+.questions { margin-bottom: 12px; }
+.questions-title { font-size: 11px; font-weight: 700; color: var(--gray-400); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.question { display: flex; gap: 8px; padding: 8px 10px; border-radius: 8px; background: var(--gray-50); border: 1px solid var(--gray-200); margin-bottom: 6px; font-size: 13px; }
+.question-mark { color: var(--green); font-weight: 800; flex-shrink: 0; }
+.question-text { color: var(--gray-500); font-style: italic; }
+
+/* NEXTSTEPS */
+.nextsteps { margin-bottom: 12px; }
+.nextstep { display: grid; grid-template-columns: 1fr 1.4fr; gap: 8px; margin-bottom: 6px; }
+.nextstep-profile { background: var(--green-light); border: 1px solid var(--green-border); border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 600; color: var(--green); }
+.nextstep-action { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: var(--gray-500); }
+
+/* PRINCIPLES */
+.principles { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.principle { display: flex; gap: 10px; background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 10px; padding: 12px 14px; }
+.principle-num {
+  width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800;
+  background: var(--green-light); color: var(--green); border: 1px solid var(--green-border);
+}
+.principle-text strong { font-weight: 700; color: var(--gray-900); font-size: 13px; }
+.principle-text p { font-size: 12px; color: var(--gray-500); margin-top: 2px; line-height: 1.55; }
+
+/* SEP */
+.sep { height: 1px; background: linear-gradient(90deg, transparent, var(--gray-200), transparent); margin: 20px 0; }
+
+/* SCREEN placeholder */
+.screen-placeholder {
+  background: var(--gray-50); border: 1px dashed var(--gray-300);
+  border-radius: 10px; padding: 12px 14px;
+  margin-bottom: 4px;
+  font-size: 12px; color: var(--gray-400);
+  text-align: center; font-style: italic;
+}
+
+/* TREE */
+.tree {
+  background: var(--blue-light); border: 1px solid var(--blue-border);
+  border-radius: 10px; padding: 12px 16px; margin-bottom: 12px;
+}
+.tree pre { font-family: 'Inter', monospace; font-size: 12px; color: var(--blue); white-space: pre-wrap; line-height: 1.7; }
+
+@media (max-width: 900px) {
+  .layout { display: block; }
+  .sidebar { display: none; }
+  main { padding: 24px 20px 60px; }
+  .versus { grid-template-columns: 1fr; }
+  .nextstep { grid-template-columns: 1fr; }
+  .dataset-rows { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="https://neil.app/lovable-uploads/92a600f8-dafb-431d-9240-1c537f06e250.png" alt="Neil">
+    </a>
+    <div class="nav-sep"></div>
+    <span class="nav-title">Guide de démonstration prospect</span>
+    <div class="nav-right">
+      <span class="nav-dataset">🪄 Dataset Poudlard</span>
+      <span class="nav-badge">⏱ 60 min</span>
+    </div>
+  </div>
+</nav>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progressBar">
+  <div class="progress-seg active" style="flex:5" data-target="s0" title="Accroche — 0-5 min"></div>
+  <div class="progress-seg" style="flex:10" data-target="s1" title="Structure — 5-15 min"></div>
+  <div class="progress-seg" style="flex:15" data-target="s2" title="Inscription — 15-30 min"></div>
+  <div class="progress-seg" style="flex:18" data-target="s3" title="Pédagogie — 30-48 min"></div>
+  <div class="progress-seg" style="flex:7" data-target="s4" title="Finance & RH — 48-55 min"></div>
+  <div class="progress-seg" style="flex:5" data-target="s5" title="Clôture — 55-60 min"></div>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <span class="sidebar-label">Séquences</span>
+    <a class="sidebar-link active" data-target="s0" href="#s0">
+      <span class="sidebar-dot" style="background:#3a786c"></span>
+      <span>L'Accroche</span>
+      <span class="sidebar-time">5 min</span>
+    </a>
+    <a class="sidebar-link" data-target="s1" href="#s1">
+      <span class="sidebar-dot" style="background:#3a6c96"></span>
+      <span>Structure & Concepts</span>
+      <span class="sidebar-time">10 min</span>
+    </a>
+    <a class="sidebar-link" data-target="s2" href="#s2">
+      <span class="sidebar-dot" style="background:#b37a2a"></span>
+      <span>Inscription Harry</span>
+      <span class="sidebar-time">15 min</span>
+    </a>
+    <a class="sidebar-link" data-target="s3" href="#s3">
+      <span class="sidebar-dot" style="background:#6b33b3"></span>
+      <span>Pédagogie</span>
+      <span class="sidebar-time">18 min</span>
+    </a>
+    <a class="sidebar-link" data-target="s4" href="#s4">
+      <span class="sidebar-dot" style="background:#2e7d52"></span>
+      <span>Finance & RH</span>
+      <span class="sidebar-time">7 min</span>
+    </a>
+    <a class="sidebar-link" data-target="s5" href="#s5">
+      <span class="sidebar-dot" style="background:#b33a6b"></span>
+      <span>Vue 360° & Clôture</span>
+      <span class="sidebar-time">5 min</span>
+    </a>
+
+    <div style="margin-top: 24px; border-top: 1px solid var(--gray-200); padding-top: 16px;">
+      <span class="sidebar-label">Dataset</span>
+      <div style="font-size: 11px; color: var(--gray-500); padding: 0 8px; line-height: 1.7;">
+        <div><strong style="color:var(--gray-900)">Harry Potter</strong></div>
+        <div style="color: var(--gray-400)">26PH01542</div>
+        <div style="color: var(--gray-400); margin-top:4px">students/1542</div>
+        <div style="margin-top:6px"><strong style="color:var(--gray-900)">Master Magie Avancée</strong></div>
+        <div style="color:var(--gray-400)">9 000€ · /formulas/107</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <div class="content-inner">
+
+      <div class="page-header">
+        <div class="meta">
+          <span class="badge badge-green">Démonstration prospect</span>
+          <span class="badge badge-orange">🪄 Poudlard</span>
+          <span class="badge badge-gray">CSM · Visio</span>
+        </div>
+        <h1>Parcours de démo — 60 minutes</h1>
+        <p>Prompteur complet pour la démonstration Neil en visioconférence. Chaque séquence indique la navigation exacte, les actions à réaliser, et la phrase clé à prononcer.</p>
+      </div>
+
+      <!-- ═══ S0 — ACCROCHE ═══ -->
+      <section class="demo-section" id="s0">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-num" style="background:var(--green-light);color:var(--green)">0</div>
+          <div class="section-header-text">
+            <h2>L'Accroche</h2>
+            <div class="section-sub">Révéler les douleurs · Poser les 3 principes Neil</div>
+          </div>
+          <span class="section-timing badge-green badge">5 min</span>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="section-body">
+          <div class="callout callout-purple">
+            <span class="label">🎤 Question d'ouverture</span>
+            « Avant de vous montrer Neil, dites-moi : aujourd'hui, combien d'outils différents utilisez-vous pour gérer vos inscriptions, votre facturation, vos plannings et vos notes ? »
+          </div>
+
+          <div class="callout callout-orange">
+            <strong>💡 Note :</strong> Laissez répondre. Notez les outils cités — ils serviront de fil rouge tout au long de la démo. En général : 3 à 7 outils (Excel, logiciel compta, drive, mails…)
+          </div>
+
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              <div class="entity-head-text">
+                <h3>Tableau de bord — Accueil</h3>
+                <p>Montrer la centralisation sans naviguer</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span class="url">neil-claude.erp.neil.app/</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-green">1</div>
+                <div class="step-text">Laisser visible l'écran d'accueil avec les 5 domaines. <strong>Ne pas naviguer encore.</strong>
+                <span class="step-tip">5 services visibles d'emblée : Secrétariat · Pédagogie · Commercial · RH · Comptabilité</span></div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="principles">
+            <div class="principle">
+              <div class="principle-num">1</div>
+              <div class="principle-text">
+                <strong>Neil centralise.</strong>
+                <p>Secrétariat, admissions, pédagogie, RH et comptabilité dans une seule plateforme. Une donnée saisie une seule fois, par la bonne personne.</p>
+              </div>
+            </div>
+            <div class="principle">
+              <div class="principle-num">2</div>
+              <div class="principle-text">
+                <strong>Neil connecte.</strong>
+                <p>Chaque action déclenche une mise à jour dans les autres services. Inscrire Harry génère automatiquement son échéancier, sa facture et son accès étudiant.</p>
+              </div>
+            </div>
+            <div class="principle">
+              <div class="principle-num">3</div>
+              <div class="principle-text">
+                <strong>Neil accompagne votre croissance.</strong>
+                <p>Aucune limite sur le nombre d'écoles, campus ou étudiants. Poudlard peut devenir un groupe de 10 écoles — Neil suit sans refonte.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout callout-blue">
+            <strong>🔌 À glisser si pertinent :</strong> Les services de bout de chaîne (CRM, émargement, signature) s'interconnectent à Neil via l'API et les webhooks. À chacun son métier — Neil est le hub central, pas une prison.
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ S1 — STRUCTURE ═══ -->
+      <section class="demo-section collapsed" id="s1">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-num" style="background:var(--blue-light);color:var(--blue)">1</div>
+          <div class="section-header-text">
+            <h2>Structure & Concepts</h2>
+            <div class="section-sub">Architecture Poudlard · Formule vs Formation</div>
+          </div>
+          <span class="section-timing badge-blue badge">10 min</span>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="section-body">
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg>
+              <div class="entity-head-text">
+                <h3>Configuration — Structure de Poudlard</h3>
+                <p>Montrer la hiérarchie juridique et pédagogique</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Configuration</span><span class="arrow">›</span>
+              <span>Société / Établissements</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-blue">1</div>
+                <div class="step-text">Poser le cadre : Neil distingue deux niveaux. <strong>Société</strong> = l'entité juridique (SIREN, IBAN, facturation). <strong>École & Campus</strong> = les entités pédagogiques (programmes, étudiants, planning).
+                <span class="step-tip">Exemple : SAS Poudlard Éducation Magique est la société. L'École de Sorcellerie est l'établissement. Le Campus Pré-au-Lard est le lieu d'enseignement. Trois niveaux distincts, jamais mélangés.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-blue">2</div>
+                <div class="step-text">Parcourir la hiérarchie en remontant : <strong>École de Sorcellerie</strong> → <strong>Campus Pré-au-Lard</strong> → <strong>SAS Poudlard Éducation Magique</strong> → Établissement</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-blue">3</div>
+                <div class="step-text">Montrer que les <strong>données bancaires et SIREN</strong> résident dans la Société — séparées de la structure pédagogique.
+                <span class="step-tip">Clé pour les groupes multi-établissements : les entités juridiques ne se mélangent jamais.</span></div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="sep"></div>
+
+          <div class="callout callout-blue" style="margin-bottom:12px">
+            <strong>Concept clé à expliquer :</strong> Neil sépare deux mondes — le juridique (facturation, IBAN) et le pédagogique (formations, programmes). La <strong>Formule</strong> fait le pont.
+          </div>
+
+          <div class="versus">
+            <div class="versus-card">
+              <div class="versus-head versus-head-green">💰 FORMULE — ce qui est commercialisé</div>
+              <div class="versus-body">
+                <div class="versus-point">Porte le prix et l'échéancier de paiement</div>
+                <div class="versus-point">Rattachée à SAS Poudlard + Campus</div>
+                <div class="versus-point">Peut avoir plusieurs formations associées</div>
+                <div class="versus-examples">
+                  <div class="versus-example versus-example-green">Master Magie Avancée — 9 000€ — M1/M2</div>
+                  <div class="versus-example versus-example-green">Prépa Sorcière Intensive — 3 800€</div>
+                </div>
+              </div>
+            </div>
+            <div class="versus-card">
+              <div class="versus-head versus-head-blue">📚 FORMATION — la prestation pédagogique</div>
+              <div class="versus-body">
+                <div class="versus-point">Porte les UE, modules, séances, notes</div>
+                <div class="versus-point">Indépendante des modalités commerciales</div>
+                <div class="versus-point">Peut alimenter plusieurs formules</div>
+                <div class="versus-examples">
+                  <div class="versus-example versus-example-blue">Master Magie Avancée & Spécialisations Ministère</div>
+                  <div class="versus-example versus-example-blue">↑ partagé entre Initiale et Apprentissage</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout callout-purple">
+            <span class="label">🎤 Vous dites</span>
+            « Vos équipes commerciales et pédagogiques travaillent en parallèle sans se marcher dessus. La formation, c'est votre programme ; la formule, c'est votre offre commerciale. Un même programme peut être vendu en initiale à 9 000€ ET en apprentissage — un seul programme à maintenir. »
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ S2 — INSCRIPTION ═══ -->
+      <section class="demo-section collapsed" id="s2">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-num" style="background:var(--orange-light);color:var(--orange)">2</div>
+          <div class="section-header-text">
+            <h2>L'Inscription de Harry Potter</h2>
+            <div class="section-sub">Fiche · Formule · Échéancier · Facture · Espace étudiant</div>
+          </div>
+          <span class="section-timing badge-orange badge">15 min</span>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="section-body">
+          <div class="dataset">
+            <div class="dataset-title">🗂 Dataset de démo</div>
+            <div class="dataset-rows">
+              <div class="dataset-row"><span class="dataset-key">Étudiant :</span><span class="dataset-val">POTTER Harry — 26PH01542</span></div>
+              <div class="dataset-row"><span class="dataset-key">Email :</span><span class="dataset-val">harry.potter14@poudlard-neil.fr</span></div>
+              <div class="dataset-row"><span class="dataset-key">Né le :</span><span class="dataset-val">17/06/2008</span></div>
+              <div class="dataset-row"><span class="dataset-key">Particularités :</span><span class="dataset-val">Sportif de haut niveau · CVEC renseigné</span></div>
+            </div>
+          </div>
+
+          <!-- Acte 1 -->
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <div class="entity-head-text">
+                <h3>Acte 1 — Fiche Harry Potter</h3>
+                <p>Identité, historique, statuts spéciaux</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Secrétariat</span><span class="arrow">›</span>
+              <span>Gestion des étudiants</span><span class="arrow">›</span>
+              <span>Recherche "Harry Potter"</span><span class="arrow">›</span>
+              <span>POTTER Harry</span>
+              <span class="url">students/1542/informations</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-orange">1</div>
+                <div class="step-text">Depuis l'accueil, cliquer sur <strong>Secrétariat → Gestion des étudiants</strong></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-orange">2</div>
+                <div class="step-text">Dans la barre de recherche, taper <strong>« Harry Potter »</strong> — Neil filtre en temps réel. Cliquer sur <strong>POTTER Harry</strong> dans les résultats.
+                <span class="step-tip">La recherche fonctionne sur le nom, le prénom, l'email ou le numéro étudiant. Un seul champ pour tout retrouver.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-orange">3</div>
+                <div class="step-text">Montrer : <strong>photo, NSS, CVEC, sportif de haut niveau</strong>, email, numéro 26PH01542</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-orange">4</div>
+                <div class="step-text">Aller dans l'onglet <strong>Inscriptions</strong> pour montrer l'<strong>historique multi-années</strong> et la détection d'homonymes : nom + prénom + date de naissance
+                <span class="step-tip">Si Harry revient dans 3 ans pour un autre cursus, Neil l'identifie et agrège son historique.</span></div>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Acte 1.5 — Vue 360° -->
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <div class="entity-head-text">
+                <h3>Acte 2 — Vue 360° de la fiche Harry</h3>
+                <p>Tous les onglets · Toutes les données connectées · Un seul endroit</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Secrétariat</span><span class="arrow">›</span>
+              <span>POTTER Harry</span>
+              <span class="url">students/1542/informations</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-orange">1</div>
+                <div class="step-text">Naviguer lentement dans tous les onglets de la fiche : <strong>Informations → Planning → Absences → Inscriptions → Notes → Paiements → Documents → Espace Étudiant → Historique</strong>
+                <span class="step-tip">Chaque onglet est alimenté par un service différent de Neil — aucune re-saisie. Ce que la scolarité valide remonte ici. Ce que le pédago publie remonte ici. Ce que la compta enregistre remonte ici.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-orange">2</div>
+                <div class="step-text">Pointer l'onglet <strong>Inscriptions</strong> : si Harry revient pour un autre cursus dans 3 ans, toute son histoire est déjà là.</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-orange">3</div>
+                <div class="step-text">Dans l'onglet Inscriptions, montrer les <strong>formations rattachées aux formules déjà souscrites</strong> — chaque formule souscrite par Harry liste la ou les formations pédagogiques associées.
+                <span class="step-tip">C'est ici que le lien commercial → pédagogique devient visible : la formule porte le prix, la formation porte le programme. Les deux sont connectés sur la fiche de l'étudiant.</span></div>
+              </li>
+            </ol>
+          </div>
+
+          <!-- Acte 2 -->
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <div class="entity-head-text">
+                <h3>Acte 3 — Inscription à la formule</h3>
+                <p>Parcours complet · Formule, étapes, réductions, échéancier, facturation, formations</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Fiche Harry</span><span class="arrow">›</span>
+              <span>Onglet Inscriptions</span><span class="arrow">›</span>
+              <span>+ Nouvelle inscription</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-orange">1</div>
+                <div class="step-text">Choisir la formule <strong>Master Magie Avancée</strong> (9 000€, M1/M2)</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-orange">2</div>
+                <div class="step-text">Présenter l'ensemble du <strong>parcours d'inscription</strong> : choix de la formule, étapes d'inscription configurées, réductions applicables, échéancier de paiement, facturation et formations rattachées. Valider l'inscription.
+                <span class="step-tip">⚠️ Ne pas créer de facture à ce stade — s'arrêter avant la génération de la facture.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-orange">3</div>
+                <div class="step-text">Sur l'inscription qui vient d'être créée, parcourir les onglets : <strong>Inscription</strong> (récapitulatif et étapes) · <strong>Échéancier</strong> (paiements générés automatiquement) · <strong>Facturation</strong> (documents comptables)</div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="wow">
+            <div class="wow-icon">✨</div>
+            <div class="wow-body">
+              <div class="wow-label">Effet WOW #1</div>
+              <div class="wow-text">« Inscription → échéancier → facture : toute la chaîne financière générée automatiquement. Zéro re-saisie, zéro écart entre scolarité et comptabilité. »</div>
+            </div>
+          </div>
+
+          <!-- Acte 4 -->
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>
+              <div class="entity-head-text">
+                <h3>Acte 4 — Espace étudiant en direct</h3>
+                <p>Activation · Synchronisation temps réel</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Fiche Harry</span><span class="arrow">›</span>
+              <span>Onglet Espace Étudiant</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-orange">1</div>
+                <div class="step-text">Activer l'espace → envoyer l'invitation à <strong>harry.potter14@poudlard-neil.fr</strong></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-orange">2</div>
+                <div class="step-text">Ouvrir un <strong>2ème onglet</strong> avec la vue étudiant — montrer la synchronisation instantanée
+                <span class="step-tip">Sur son espace : inscriptions, planning, documents, échéances — tout ce que l'admin publie dans Neil arrive ici dans la seconde.</span></div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="wow">
+            <div class="wow-icon">✨</div>
+            <div class="wow-body">
+              <div class="wow-label">Effet WOW #2</div>
+              <div class="wow-text">« Ce que vous validez dans Neil, Harry Potter le voit sur son portail dans la seconde. Pas d'email manuel, pas de PDF, pas de drive partagé non sécurisé. »</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ S3 — PÉDAGOGIE ═══ -->
+      <section class="demo-section collapsed" id="s3">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-num" style="background:var(--purple-light);color:var(--purple)">3</div>
+          <div class="section-header-text">
+            <h2>La Pédagogie vivante</h2>
+            <div class="section-sub">Modules · Planning · Diffusion · Notes · Bulletins</div>
+          </div>
+          <span class="section-timing badge-purple badge">18 min</span>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="section-body">
+          <div class="tree">
+            <pre>Formation  →  UE  →  Module d'enseignement  →  Séance
+                                 ↕                            ↕
+              Relevé de notes / Note composée</pre>
+          </div>
+
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              <div class="entity-head-text">
+                <h3>Acte 1 — Modules & industrialisation</h3>
+                <p>Bibliothèque pédagogique · Permanent vs non-permanent</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Pédagogie</span><span class="arrow">›</span>
+              <span>Formations</span><span class="arrow">›</span>
+              <span>Master Magie Avancée & Spécialisations Ministère</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-purple">1</div>
+                <div class="step-text">Montrer la structure <strong>UE / modules</strong> — les UE sont organisées par <strong>drag & drop</strong> dans la configuration de la formation. Chaque UE peut avoir une <strong>équipe pédagogique assignée directement</strong>, visible depuis la fiche UE.</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">2</div>
+                <div class="step-text">Expliquer l'utilité du <strong>module pédagogique</strong> : c'est l'unité de base du programme. Il porte le contenu (documents, ressources), les règles d'évaluation (coefficients, barèmes) et le volume horaire. Il est configuré une fois et peut être réutilisé d'une année sur l'autre via la <strong>bibliothèque pédagogique</strong>.
+                <span class="step-tip">À distinguer de la séance : le module est le « quoi » — le contenu et les règles. La séance est le « quand et pour qui » — une occurrence concrète du module dans le temps, pour une audience donnée, dans une salle, avec un intervenant.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">3</div>
+                <div class="step-text">Introduire la notion de <strong>séance</strong> : une fois un module paramétré, il peut être dispensé à volonté à une ou plusieurs audiences. Chaque séance est <strong>unique</strong> — sa propre date, salle, intervenant, liste d'étudiants — et est toujours rattachée à un module pédagogique.
+                <span class="step-tip">Le module définit le contenu et les règles d'évaluation. La séance l'instancie dans le temps et l'espace. Un même module peut générer 6 séances sur l'année, pour 3 classes différentes.</span></div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <div class="entity-head-text">
+                <h3>Acte 2 — Documents du module</h3>
+                <p>Options de diffusion · Encodage vidéo intégré</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Formation</span><span class="arrow">›</span>
+              <span>Module</span><span class="arrow">›</span>
+              <span>Onglet Documents</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-purple">1</div>
+                <div class="step-text">Sélectionner le module <strong>Guérison des maléfices</strong> et cliquer sur <strong>Documents étudiants</strong></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">2</div>
+                <div class="step-text">Uploader un document → montrer les <strong>différentes options de diffusion</strong> disponibles</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">3</div>
+                <div class="step-text">On lance le film <strong>Harry Potter</strong> directement depuis Neil — vidéo encodée dans la plateforme, aucun outil externe nécessaire</div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="wow">
+            <div class="wow-icon">✨</div>
+            <div class="wow-body">
+              <div class="wow-label">Effet WOW</div>
+              <div class="wow-text">« Vous maîtrisez intégralement la diffusion de vos contenus sécurisés. Les enseignants n'ont plus à passer par un logiciel d'encodage vidéo et n'ont pas de limite de taille. Leur vie va être changée. »</div>
+            </div>
+          </div>
+
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
+              <div class="entity-head-text">
+                <h3>Acte 3 — Créer une séance · options de programmation</h3>
+                <p>Formulaire complet · présentiel, visio, brouillon, intervenants</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Formation</span><span class="arrow">›</span>
+              <span>Planning de la formation</span><span class="arrow">›</span>
+              <span>+ Ajouter une séance</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-purple">1</div>
+                <div class="step-text">Dans le module <strong>Guérison des maléfices</strong>, cliquer sur <strong>Séances</strong> puis sur <strong>+ Ajouter une séance</strong></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">2</div>
+                <div class="step-text"><strong>Audience</strong> — sélectionner la liste d'étudiants (classe ou groupe) qui verront cette séance dans leur planning</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">3</div>
+                <div class="step-text"><strong>Programmation — Séance en présentiel</strong> : renseigner la durée, choisir la salle et la date/heure
+                <span class="step-tip">La salle est obligatoire en présentiel. Neil liste uniquement les salles rattachées au campus de la formation.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">4</div>
+                <div class="step-text">Option <strong>« Séance en ligne uniquement »</strong> — décocher la salle physique et saisir un <strong>lien de visio</strong> (Zoom, Teams, Meet…)
+                <span class="step-tip">Les deux modes peuvent coexister : une séance en présentiel peut être complétée par un lien de visio pour les absents ou les hybrides.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">5</div>
+                <div class="step-text"><strong>Intervenant(s)</strong> — ajouter un ou plusieurs intervenants via la liste déroulante. Neil les marque automatiquement comme indisponibles sur leurs plannings RH pour ce créneau</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">6</div>
+                <div class="step-text"><strong>Statut : Brouillon</strong> — activer le toggle pour travailler la séance sans la diffuser aux étudiants. La désactiver pour la publier sur les espaces étudiants instantanément
+                <span class="step-tip">Utile pour préparer tout le planning à l'avance avant de le rendre visible d'un coup.</span></div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="wow">
+            <div class="wow-icon">✨</div>
+            <div class="wow-body">
+              <div class="wow-label">Effet WOW #3</div>
+              <div class="wow-text">« Je prépare toutes mes séances en brouillon, j'affecte mes intervenants — leurs heures apparaissent dans la RH. Quand je publie, Harry voit tout son planning d'un coup. »</div>
+            </div>
+          </div>
+
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              <div class="entity-head-text">
+                <h3>Acte 4 — Notes & Relevés</h3>
+                <p>Liste des relevés · Détail d'un relevé · Notes par étudiant</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Formation</span><span class="arrow">›</span>
+              <span>Module</span><span class="arrow">›</span>
+              <span>Évaluations</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-purple">1</div>
+                <div class="step-text">Montrer la <strong>liste des relevés de notes et notes composées</strong> existants sur le module — vue d'ensemble de toutes les évaluations configurées</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">2</div>
+                <div class="step-text">Ouvrir le <strong>détail d'un relevé de notes</strong> — structure, coefficients, barème et paramètres de l'évaluation</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">3</div>
+                <div class="step-text">Afficher les <strong>notes par étudiant</strong> — visualiser les résultats de la promotion et les notes individuelles de Harry</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">4</div>
+                <div class="step-text">Depuis le menu général de la pédagogie, cliquer sur <strong>Bulletins de notes</strong></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">5</div>
+                <div class="step-text">Cliquer sur un <strong>bulletin</strong> pour en afficher le détail</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">6</div>
+                <div class="step-text">Afficher le <strong>bulletin d'un étudiant</strong> — montrer la vue consolidée des notes et résultats</div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="wow">
+            <div class="wow-icon">✨</div>
+            <div class="wow-body">
+              <div class="wow-label">Effet WOW #4</div>
+              <div class="wow-text">« Notes saisies il y a 30 secondes → note composée calculée automatiquement. Pour 200 étudiants : toujours 3 clics. »</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══ S4 — FINANCE & RH ═══ -->
+      <section class="demo-section collapsed" id="s4">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-num" style="background:#e8f5ec;color:#2e7d52">4</div>
+          <div class="section-header-text">
+            <h2>Finance & Ressources Humaines</h2>
+            <div class="section-sub">Comptabilité multi-sociétés · Contrôle de gestion · Heures vacataires · Rôles & droits d'accès</div>
+          </div>
+          <span class="section-timing" style="background:#e8f5ec;border:1px solid #b8dcc6;color:#2e7d52;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px">7 min</span>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="section-body">
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <div class="entity-head-text">
+                <h3>Comptabilité — Échéancier & Contrôle de gestion</h3>
+                <p>Vue consolidée · Export DAF</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Comptabilité</span><span class="arrow">›</span>
+              <span>Échéancier général</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-green">1</div>
+                <div class="step-text">Filtrer par <strong>SAS Poudlard Éducation Magique</strong> — montrer que les entités d'un groupe ne se mélangent jamais</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-green">2</div>
+                <div class="step-text">Ouvrir <strong>Contrôle de gestion</strong> → télécharger le dashboard
+                <span class="step-tip">Comptabilité multi-sociétés : scopée par entité juridique. Toujours à jour, exportable.</span></div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="callout callout-orange">
+            <strong>🎯 Pitch DAF :</strong> « Avant, votre DAF passait 2 heures chaque lundi à consolider des extractions de 3 outils différents. Ici, c'est instantané, toujours à jour, et exportable. »
+          </div>
+
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <div class="entity-head-text">
+                <h3>RH — Suivi des heures d'un intervenant</h3>
+                <p>Lien automatique planning ↔ RH</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Ressources Humaines</span><span class="arrow">›</span>
+              <span>Utilisateurs</span><span class="arrow">›</span>
+              <span>Sélectionner un enseignant</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-green">1</div>
+                <div class="step-text">Onglet <strong>Suivi des heures</strong> — montrer les séances générées automatiquement depuis le planning</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-green">2</div>
+                <div class="step-text">Montrer l'<strong>export pour la paie vacataires</strong>
+                <span class="step-tip">Une donnée saisie une seule fois dans le planning → disponible dans la RH sans re-saisie.</span></div>
+              </li>
+            </ol>
+          </div>
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M18 8h4M22 8h-4"/></svg>
+              <div class="entity-head-text">
+                <h3>Rôles & droits d'accès — gestion fine des permissions</h3>
+                <p>Utilisateurs › sélectionner un salarié › Droits d'accès</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Utilisateurs</span><span class="arrow">›</span>
+              <span>DUMBLEDORE Albus</span><span class="arrow">›</span>
+              <span>Droits d'accès</span>
+            </div>
+
+            <div class="callout callout-blue" style="margin-bottom:16px">
+              <strong>Principe clé :</strong> un <strong>rôle</strong> définit ce qu'un utilisateur peut faire. Un <strong>droit d'accès</strong> applique ce rôle à un périmètre précis. Un même utilisateur peut cumuler plusieurs droits d'accès avec des rôles et des scopes différents.
+            </div>
+
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-green">1</div>
+                <div class="step-text">Ouvrir la fiche DUMBLEDORE Albus → onglet <strong>Droits d'accès</strong>. Il dispose du rôle <strong>Directeur d'école</strong>, valide <em>illimité</em>, avec les restrictions affichées en face.</div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-green">2</div>
+                <div class="step-text">Cliquer <strong>+ Ajouter un droit d'accès</strong> pour montrer la mécanique :
+                <span class="step-tip">Étape 1 — choisir le <strong>Rôle</strong> (ex. Administrateur, Directeur d'école, Enseignant, Responsable commercial…). Étape 2 — configurer les <strong>restrictions de scope</strong> qui limitent l'application de ce rôle.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-green">3</div>
+                <div class="step-text">Présenter les <strong>5 dimensions de scope</strong> disponibles :
+                  <div style="margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                    <div style="background:#eaf2f8;border:1px solid #c4d8e8;border-radius:8px;padding:10px 12px">
+                      <div style="font-size:11px;font-weight:700;color:#3a6c96;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">🏫 École(s)</div>
+                      <div style="font-size:12px;color:#444">Restreindre à une ou plusieurs écoles du groupe</div>
+                    </div>
+                    <div style="background:#eaf2f8;border:1px solid #c4d8e8;border-radius:8px;padding:10px 12px">
+                      <div style="font-size:11px;font-weight:700;color:#3a6c96;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">📅 Année scolaire</div>
+                      <div style="font-size:12px;color:#444">Limiter à une ou plusieurs années (ex. 2025-2027)</div>
+                    </div>
+                    <div style="background:#eaf2f8;border:1px solid #c4d8e8;border-radius:8px;padding:10px 12px">
+                      <div style="font-size:11px;font-weight:700;color:#3a6c96;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">🎓 Niveau(x)</div>
+                      <div style="font-size:12px;color:#444">Restreindre à L1, M2, Prépa… ou tous les niveaux</div>
+                    </div>
+                    <div style="background:#eaf2f8;border:1px solid #c4d8e8;border-radius:8px;padding:10px 12px">
+                      <div style="font-size:11px;font-weight:700;color:#3a6c96;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">🏢 Société</div>
+                      <div style="font-size:12px;color:#444">Isoler par entité juridique (multi-campus, multi-marques)</div>
+                    </div>
+                    <div style="background:#eaf2f8;border:1px solid #c4d8e8;border-radius:8px;padding:10px 12px;grid-column:1/-1">
+                      <div style="font-size:11px;font-weight:700;color:#3a6c96;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">📚 Matière(s) & Formations</div>
+                      <div style="font-size:12px;color:#444">Accès limité à certaines matières ou affectation à des formations spécifiques</div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-green">4</div>
+                <div class="step-text">Souligner la <strong>cumulabilité</strong> : un coordinateur pédagogique peut avoir le rôle <em>Enseignant</em> sur toutes les formations M1, <em>et</em> le rôle <em>Administrateur</em> restreint à l'année 2025-2026 sur un seul campus. Les droits s'additionnent.
+                <span class="step-tip">Exemple Poudlard : DUMBLEDORE est Directeur d'école sans restriction. McGonagall pourrait être Administratrice uniquement sur le Campus Pré-au-Lard pour l'année 2025-2027.</span></div>
+              </li>
+            </ol>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ═══ S5 — CLÔTURE ═══ -->
+      <section class="demo-section collapsed" id="s5">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-num" style="background:#fde8f5;color:#b33a6b">5</div>
+          <div class="section-header-text">
+            <h2>Ressources partagées & Clôture</h2>
+            <div class="section-sub">Ressources partagées · Qualification · Prochaines étapes</div>
+          </div>
+          <span class="section-timing" style="background:#fde8f5;border:1px solid #eccce4;color:#b33a6b;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px">5 min</span>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="section-body">
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+              <div class="entity-head-text">
+                <h3>Ressources partagées — deux espaces distincts</h3>
+                <p>Documents centralisés · Accessibles à toute l'organisation</p>
+              </div>
+            </div>
+
+            <div class="callout callout-blue" style="margin-bottom:16px">
+              <strong>Principe :</strong> les Ressources partagées sont des bibliothèques de documents centralisées dans Neil, accessibles à tous les membres de l'organisation selon leurs droits. Il en existe deux, avec des périmètres différents.
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
+              <div style="background:#e8f5f1;border:1px solid #c4e0d8;border-radius:10px;padding:14px 16px">
+                <div style="font-size:11px;font-weight:700;color:#3a786c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">🗂 Ressources partagées du Secrétariat</div>
+                <div style="font-size:12px;color:#333;margin-bottom:6px">Documents administratifs destinés au secrétariat : règlements intérieurs, chartes, formulaires, modèles de contrats…</div>
+                <div style="font-size:11px;color:#3a786c;font-family:monospace">Secrétariat › Ressources partagées</div>
+              </div>
+              <div style="background:#eaf2f8;border:1px solid #c4d8e8;border-radius:10px;padding:14px 16px">
+                <div style="font-size:11px;font-weight:700;color:#3a6c96;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">📚 Ressources partagées Pédagogiques</div>
+                <div style="font-size:12px;color:#333;margin-bottom:6px">Documents pédagogiques partagés à toute l'équipe : syllabi, trames de cours, référentiels de compétences…</div>
+                <div style="font-size:11px;color:#3a6c96;font-family:monospace">Pédagogie › Ressources partagées</div>
+              </div>
+            </div>
+
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num" style="background:#fde8f5;color:#b33a6b;border:1px solid #eccce4;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">1</div>
+                <div class="step-text">Ouvrir <strong>Secrétariat → Ressources partagées</strong> — montrer la zone de dépôt, le filtre par <strong>année scolaire</strong> et les trois onglets : <em>Ressources partagées / Corbeille / Journal d'activités</em>
+                <span class="step-tip">Le Journal d'activités trace qui a déposé, modifié ou supprimé chaque document — utile en cas d'audit ou de conformité.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num" style="background:#fde8f5;color:#b33a6b;border:1px solid #eccce4;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">2</div>
+                <div class="step-text">Basculer sur <strong>Pédagogie → Ressources partagées</strong> — même structure, périmètre pédagogique. Tout intervenant avec les bons droits peut y déposer ses supports sans passer par un drive externe.
+                <span class="step-tip">Ces ressources peuvent être référencées dans un module ou une séance pour être diffusées directement sur l'espace étudiant, selon la politique de diffusion choisie.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num" style="background:#fde8f5;color:#b33a6b;border:1px solid #eccce4;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">3</div>
+                <div class="step-text">Souligner le <strong>gain organisationnel</strong> : fini le drive partagé non sécurisé, les versions qui se multiplient, les liens expirés. Un seul endroit, versionné, filtrable, tracé.</div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="sep"></div>
+
+          <div class="questions">
+            <div class="questions-title">Questions de qualification</div>
+            <div class="question"><span class="question-mark">?</span><span class="question-text">Quelle partie vous parle le plus par rapport à votre situation actuelle ?</span></div>
+            <div class="question"><span class="question-mark">?</span><span class="question-text">Combien d'étudiants gérez-vous ? Combien d'écoles ou de campus ?</span></div>
+            <div class="question"><span class="question-mark">?</span><span class="question-text">Quels outils utilisez-vous aujourd'hui — qu'est-ce qui vous coûte le plus d'énergie ?</span></div>
+            <div class="question"><span class="question-mark">?</span><span class="question-text">Avez-vous des outils tiers auxquels vous tenez et souhaitez conserver ?</span></div>
+            <div class="question"><span class="question-mark">?</span><span class="question-text">Qui d'autre doit voir Neil (DSI, DAF, Directeur Pédago) ?</span></div>
+            <div class="question"><span class="question-mark">?</span><span class="question-text">Quel est votre calendrier de décision ?</span></div>
+          </div>
+
+          <div class="sep"></div>
+
+          <div class="nextsteps">
+            <div class="questions-title">Prochaines étapes selon le profil</div>
+            <div class="nextstep">
+              <div class="nextstep-profile">Curieux, pas encore décideur</div>
+              <div class="nextstep-action">2ème démo approfondie sur le module qui l'intéresse le plus</div>
+            </div>
+            <div class="nextstep">
+              <div class="nextstep-profile">Décideur qualifié, budget identifié</div>
+              <div class="nextstep-action">Workshop de configuration — campus pilote avec ses propres données</div>
+            </div>
+            <div class="nextstep">
+              <div class="nextstep-profile">Besoin d'embarquer d'autres équipes</div>
+              <div class="nextstep-action">Présentation courte co-animée avec un référent Neil (DAF, DG, DSI)</div>
+            </div>
+            <div class="nextstep">
+              <div class="nextstep-profile">Attaché à des outils tiers</div>
+              <div class="nextstep-action">Démonstration d'un cas d'interconnexion API sur son outil existant</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+function toggleSection(header) {
+  const section = header.closest('.demo-section');
+  const wasCollapsed = section.classList.contains('collapsed');
+  section.classList.toggle('collapsed');
+  // Update sidebar + progress bar active state
+  const id = section.id;
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.progress-seg').forEach(s => s.classList.remove('active'));
+  if (!wasCollapsed) return; // if we just closed, no active state needed
+  const sLink = document.querySelector('.sidebar-link[data-target="' + id + '"]');
+  const sSeg = document.querySelector('.progress-seg[data-target="' + id + '"]');
+  if (sLink) sLink.classList.add('active');
+  if (sSeg) sSeg.classList.add('active');
+}
+
+// Sidebar & progress bar click navigation
+document.querySelectorAll('.sidebar-link, .progress-seg').forEach(el => {
+  el.addEventListener('click', function(e) {
+    const target = this.dataset.target;
+    if (!target) return;
+    const section = document.getElementById(target);
+    if (!section) return;
+    // Open target section, close others
+    document.querySelectorAll('.demo-section').forEach(s => {
+      if (s.id === target) s.classList.remove('collapsed');
+      else s.classList.add('collapsed');
+    });
+    // Active states
+    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+    document.querySelectorAll('.progress-seg').forEach(s => s.classList.remove('active'));
+    const sLink = document.querySelector('.sidebar-link[data-target="' + target + '"]');
+    const sSeg = document.querySelector('.progress-seg[data-target="' + target + '"]');
+    if (sLink) sLink.classList.add('active');
+    if (sSeg) sSeg.classList.add('active');
+    // Scroll
+    setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  });
+});
+
+// Intercept anchor clicks on sidebar
+document.querySelectorAll('.sidebar-link').forEach(el => {
+  el.addEventListener('click', e => e.preventDefault());
+});
+</script>
+</body>
+</html>
