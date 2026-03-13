@@ -1,0 +1,554 @@
+{
+  "meta": {
+    "steps_completed": [
+      "seed_profiles",
+      "seed_subjects",
+      "seed_document_types",
+      "seed_neil",
+      "seed_formulas",
+      "seed_teaching_units",
+      "seed_module_types"
+    ]
+  },
+  "profiles": {
+    "directeur": {
+      "id": 165,
+      "name": "Directeur d'école"
+    },
+    "resp_pedagogique": {
+      "id": 166,
+      "name": "Responsable pédagogique"
+    },
+    "resp_admissions": {
+      "id": 167,
+      "name": "Responsable des admissions"
+    },
+    "secretaire": {
+      "id": 168,
+      "name": "Secrétaire pédagogique"
+    },
+    "comptable": {
+      "id": 169,
+      "name": "Comptable"
+    },
+    "enseignant": {
+      "id": 170,
+      "name": "Enseignant"
+    },
+    "resp_rh": {
+      "id": 171,
+      "name": "Responsable RH"
+    }
+  },
+  "subjects": {
+    "total_subjects": 13,
+    "total_subsubjects": 31,
+    "subject_ids": {
+      "Sortilèges et Enchantements": 232,
+      "Potions": 233,
+      "Métamorphose": 234,
+      "Défense contre les Forces du Mal": 235,
+      "Botanique magique": 236,
+      "Soins aux Créatures Magiques": 237,
+      "Vol et Quidditch": 238,
+      "Runes et Arithmancie": 239,
+      "Études avancées": 240,
+      "Langues": 241,
+      "Sciences humaines et sociales": 242,
+      "Méthodologie et recherche": 243,
+      "Professionnalisation": 244
+    }
+  },
+  "document_types": {
+    "total_created": 26,
+    "total_existing": 0,
+    "type_ids": {
+      "Support de cours": 287,
+      "Sujet d'examen": 288,
+      "Corrigé": 289,
+      "Fiche de TD/TP": 290,
+      "Syllabus": 291,
+      "Grille d'évaluation": 292,
+      "Feuille d'émargement": 293,
+      "Règlement intérieur": 294,
+      "Courrier administratif": 295,
+      "PV de jury": 296,
+      "Brochure de formation": 297,
+      "Dossier de candidature": 298,
+      "Facture": 299,
+      "Avoir": 300,
+      "Bon de commande": 301,
+      "Note interne": 302,
+      "Vidéo de cours": 303,
+      "Fiche de cours": 304,
+      "Exercice": 305,
+      "Annale d'examen": 306,
+      "Bibliographie": 307,
+      "Tutoriel": 308,
+      "Podcast / Audio": 309,
+      "Consigne de projet": 310,
+      "Ressource complémentaire": 311,
+      "Guide de stage": 312
+    }
+  },
+  "infrastructure": {
+    "schools": {
+      "school_1": {
+        "id": 25,
+        "name": "Poudlard — École de Sorcellerie",
+        "short": "Pdlrd",
+        "theme": "poudlard"
+      }
+    },
+    "faculties": {
+      "campus_1_1": {
+        "id": 36,
+        "school_key": "school_1",
+        "name": "Campus Pdlrd — Pré-au-Lard",
+        "city": "Pré-au-Lard",
+        "center_id": 47,
+        "room_ids": [
+          179,
+          180,
+          181,
+          182
+        ]
+      }
+    },
+    "companies": {
+      "company_1": {
+        "name": "SAS Poudlard Éducation Magique",
+        "school_keys": [
+          "school_1"
+        ],
+        "id": 22
+      }
+    },
+    "levels": {
+      "CPGE": 196,
+      "Prépa": 197,
+      "DEUST": 198,
+      "BTS 1": 199,
+      "BTS 2": 200,
+      "BUT 1": 201,
+      "BUT 2": 202,
+      "BUT 3": 203,
+      "L1": 204,
+      "L2": 205,
+      "L3": 206,
+      "Licence Pro": 207,
+      "M1": 208,
+      "M2": 209,
+      "Mastère Spécialisé": 210,
+      "Diplôme d'Ingénieur": 211,
+      "D1": 212,
+      "D2": 213,
+      "D3": 214
+    },
+    "centers": {
+      "47": {
+        "name": "Château de Poudlard",
+        "center_key": "center_1",
+        "city": "Pré-au-Lard",
+        "room_ids": [
+          179,
+          180,
+          181,
+          182
+        ],
+        "hours": {
+          "0": {
+            "open": 27000,
+            "close": 72000
+          },
+          "1": {
+            "open": 27000,
+            "close": 72000
+          },
+          "2": {
+            "open": 27000,
+            "close": 72000
+          },
+          "3": {
+            "open": 27000,
+            "close": 72000
+          },
+          "4": {
+            "open": 27000,
+            "close": 72000
+          },
+          "5": {
+            "open": 28800,
+            "close": 46800
+          }
+        }
+      }
+    },
+    "rooms": {
+      "179": {
+        "name": "Grande Salle — Aile Gryffondor",
+        "center_id": 47,
+        "capacity": 96
+      },
+      "180": {
+        "name": "Salle de cours — Tour Gryffondor",
+        "center_id": 47,
+        "capacity": 38
+      },
+      "181": {
+        "name": "Cachots — Salle Rogue",
+        "center_id": 47,
+        "capacity": 25
+      },
+      "182": {
+        "name": "Salle sur Demande — Config. Défense",
+        "center_id": 47,
+        "capacity": 54
+      }
+    }
+  },
+  "calendars": {
+    "campus_1_1": {
+      "id": 7,
+      "name": "Zone C — Pré-au-Lard",
+      "zone": "C",
+      "center_id": 47,
+      "faculty_id": 36,
+      "n_constraints": 13
+    }
+  },
+  "formations": {
+    "formation_1_1": {
+      "id": 133,
+      "name": "Tronc commun Poudlard — École de Sorcellerie — BUSE",
+      "school_key": "school_1",
+      "hours": 1000,
+      "theme": "poudlard_tronc",
+      "primary_center_id": 47,
+      "faculty_ids": [
+        36
+      ],
+      "level_ids": [
+        204,
+        205,
+        206
+      ]
+    },
+    "formation_1_2": {
+      "id": 134,
+      "name": "Prépa Pdlrd — Initiation Magique",
+      "school_key": "school_1",
+      "hours": 220,
+      "theme": "poudlard_prepa",
+      "primary_center_id": 47,
+      "faculty_ids": [
+        36
+      ],
+      "level_ids": [
+        197
+      ]
+    },
+    "formation_1_3": {
+      "id": 135,
+      "name": "Prépa Pdlrd — Approfondissement Magique",
+      "school_key": "school_1",
+      "hours": 220,
+      "theme": "poudlard_prepa",
+      "primary_center_id": 47,
+      "faculty_ids": [
+        36
+      ],
+      "level_ids": [
+        197
+      ]
+    },
+    "formation_1_4": {
+      "id": 136,
+      "name": "ASPIC Pdlrd — Spécialisations",
+      "school_key": "school_1",
+      "hours": 400,
+      "theme": "poudlard_aspic",
+      "primary_center_id": 47,
+      "faculty_ids": [
+        36
+      ],
+      "level_ids": [
+        208
+      ]
+    },
+    "formation_1_5": {
+      "id": 137,
+      "name": "Perfectionnement Quidditch & Sports Magiques",
+      "school_key": "school_1",
+      "hours": 300,
+      "theme": "poudlard_quidditch",
+      "primary_center_id": 47,
+      "faculty_ids": [
+        36
+      ],
+      "level_ids": [
+        204,
+        205,
+        206
+      ]
+    },
+    "formation_1_6": {
+      "id": 138,
+      "name": "Master Magie Avancée & Spécialisations Ministère",
+      "school_key": "school_1",
+      "hours": 500,
+      "theme": "poudlard_master",
+      "primary_center_id": 47,
+      "faculty_ids": [
+        36
+      ],
+      "level_ids": [
+        208,
+        209
+      ]
+    },
+    "formation_1_7": {
+      "id": 139,
+      "name": "Stage Professionnel Monde Magique",
+      "school_key": "school_1",
+      "hours": 140,
+      "theme": "poudlard_stage",
+      "primary_center_id": 47,
+      "faculty_ids": [
+        36
+      ],
+      "level_ids": [
+        209
+      ]
+    }
+  },
+  "formulas": {
+    "formula_1_1": {
+      "id": 77,
+      "name": "Cursus BUSE — Poudlard — École de Sorcellerie",
+      "school_key": "school_1",
+      "price": 700000,
+      "steps": [
+        348,
+        349,
+        350
+      ],
+      "discounts": [
+        128,
+        129
+      ],
+      "charges": [
+        81
+      ],
+      "sets": [
+        {
+          "set_id": 85,
+          "formations": [
+            133
+          ],
+          "formation_keys": [
+            "formation_1_1"
+          ],
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "degree": {
+        "degree_id": 8,
+        "certification_id": 7,
+        "name": "Brevet Universel de Sorcellerie"
+      }
+    },
+    "formula_1_2": {
+      "id": 78,
+      "name": "Prépa Sorcière Intensive — Pdlrd",
+      "school_key": "school_1",
+      "price": 380000,
+      "steps": [
+        353,
+        354,
+        355
+      ],
+      "discounts": [
+        130,
+        131
+      ],
+      "charges": [
+        82,
+        83
+      ],
+      "sets": [
+        {
+          "set_id": 86,
+          "formations": [
+            134
+          ],
+          "formation_keys": [
+            "formation_1_2"
+          ],
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "degree": {
+        "degree_id": 9,
+        "certification_id": 8,
+        "name": "Certificat de Prépa Sorcière"
+      }
+    },
+    "formula_1_3": {
+      "id": 79,
+      "name": "ASPIC & Spécialisations",
+      "school_key": "school_1",
+      "price": 500000,
+      "steps": [
+        358,
+        359,
+        360
+      ],
+      "discounts": [
+        132,
+        133
+      ],
+      "charges": [
+        84
+      ],
+      "sets": [
+        {
+          "set_id": 87,
+          "formations": [
+            136
+          ],
+          "formation_keys": [
+            "formation_1_4"
+          ],
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "degree": {
+        "degree_id": 10,
+        "certification_id": 9,
+        "name": "Accumulation de Sorcellerie"
+      }
+    },
+    "formula_1_4": {
+      "id": 80,
+      "name": "Perfectionnement Quidditch & Sports — Pdlrd",
+      "school_key": "school_1",
+      "price": 350000,
+      "steps": [
+        363,
+        364,
+        365
+      ],
+      "discounts": [
+        134,
+        135
+      ],
+      "charges": [
+        85,
+        86
+      ],
+      "sets": [
+        {
+          "set_id": 88,
+          "formations": [
+            137
+          ],
+          "formation_keys": [
+            "formation_1_5"
+          ],
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "degree": {
+        "degree_id": 11,
+        "certification_id": 10,
+        "name": "Brevet de Quidditch Professionnel"
+      }
+    },
+    "formula_1_5": {
+      "id": 81,
+      "name": "Master Magie Avancée",
+      "school_key": "school_1",
+      "price": 900000,
+      "steps": [
+        368,
+        369,
+        370,
+        371
+      ],
+      "discounts": [
+        136,
+        137
+      ],
+      "charges": [
+        87
+      ],
+      "sets": [
+        {
+          "set_id": 89,
+          "formations": [
+            138
+          ],
+          "formation_keys": [
+            "formation_1_6"
+          ],
+          "min": 1,
+          "max": 1
+        },
+        {
+          "set_id": 90,
+          "formations": [
+            139
+          ],
+          "formation_keys": [
+            "formation_1_7"
+          ],
+          "min": 0,
+          "max": 1
+        }
+      ],
+      "degree": {
+        "degree_id": 12,
+        "certification_id": 11,
+        "name": "Master en Magie Avancée"
+      }
+    }
+  },
+  "degrees": {
+    "formula_1_1": {
+      "degree_id": 8,
+      "certification_id": 7,
+      "name": "Brevet Universel de Sorcellerie"
+    },
+    "formula_1_2": {
+      "degree_id": 9,
+      "certification_id": 8,
+      "name": "Certificat de Prépa Sorcière"
+    },
+    "formula_1_3": {
+      "degree_id": 10,
+      "certification_id": 9,
+      "name": "Accumulation de Sorcellerie"
+    },
+    "formula_1_4": {
+      "degree_id": 11,
+      "certification_id": 10,
+      "name": "Brevet de Quidditch Professionnel"
+    },
+    "formula_1_5": {
+      "degree_id": 12,
+      "certification_id": 11,
+      "name": "Master en Magie Avancée"
+    }
+  },
+  "teaching_units": {
+    "total_ues": 19,
+    "total_sub_ues": 44,
+    "total_modules": 846,
+    "total_hours": 2780
+  }
+}

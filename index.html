@@ -75,39 +75,11 @@ nav {
 .progress-seg.active { background: var(--green); }
 
 /* LAYOUT */
-.layout { display: flex; }
-.sidebar {
-  width: 220px; flex-shrink: 0;
-  position: sticky; top: 87px;
-  height: calc(100vh - 87px);
-  overflow-y: auto; border-right: 1px solid var(--gray-200);
-  padding: 16px 10px;
-  scrollbar-width: none;
-}
-.sidebar::-webkit-scrollbar { display: none; }
-.sidebar-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
-  text-transform: uppercase; color: var(--gray-400);
-  padding: 0 8px 10px; display: block;
-}
-.sidebar-link {
-  display: flex; align-items: flex-start; gap: 8px;
-  padding: 7px 8px; border-radius: 8px;
-  font-size: 12px; font-weight: 500; color: var(--gray-500);
-  text-decoration: none; cursor: pointer;
-  transition: all 0.15s; margin-bottom: 1px;
-}
-.sidebar-link:hover { background: var(--gray-50); color: var(--gray-900); }
-.sidebar-link.active { background: var(--green-light); color: var(--green); font-weight: 600; }
-.sidebar-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  margin-top: 4px; flex-shrink: 0;
-}
-.sidebar-time { font-size: 10px; color: var(--gray-400); margin-left: auto; flex-shrink: 0; }
+.layout { display: flex; justify-content: center; }
 
 /* MAIN */
-main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
-.content-inner { max-width: 760px; }
+main { flex: 1; min-width: 0; max-width: 900px; padding: 32px 40px 80px; }
+.content-inner { max-width: 760px; margin: 0 auto; }
 
 /* PAGE HEADER */
 .page-header { margin-bottom: 36px; }
@@ -310,13 +282,80 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
 }
 .tree pre { font-family: 'Inter', monospace; font-size: 12px; color: var(--blue); white-space: pre-wrap; line-height: 1.7; }
 
+/* SEEDER UI */
+.seeder-config { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.seeder-field { display: flex; flex-direction: column; gap: 4px; }
+.seeder-field label { font-size: 11px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
+.seeder-field input {
+  font-family: 'Inter', monospace; font-size: 12px; padding: 8px 12px;
+  border: 1px solid var(--gray-200); border-radius: 8px; background: var(--gray-50);
+  color: var(--gray-900); outline: none; transition: border-color 0.15s;
+}
+.seeder-field input:focus { border-color: var(--green); background: var(--white); }
+.seeder-actions { display: flex; gap: 8px; margin-bottom: 16px; }
+.seeder-btn {
+  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+  padding: 8px 18px; border-radius: 8px; border: 1px solid;
+  cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px;
+}
+.seeder-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.seeder-btn-primary { background: var(--green); color: var(--white); border-color: var(--green); }
+.seeder-btn-primary:hover:not(:disabled) { opacity: 0.85; }
+.seeder-btn-danger { background: var(--white); color: var(--red); border-color: var(--red-border); }
+.seeder-btn-danger:hover:not(:disabled) { background: var(--red-light); }
+.seeder-btn-secondary { background: var(--white); color: var(--gray-500); border-color: var(--gray-200); }
+.seeder-btn-secondary:hover:not(:disabled) { background: var(--gray-50); color: var(--gray-900); }
+
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.seeder-desc { font-size: 12px; color: var(--gray-400); line-height: 1.55; margin-bottom: 14px; }
+
+.seeder-progress-bar {
+  height: 4px; background: var(--gray-200); border-radius: 2px;
+  margin-bottom: 14px; overflow: hidden;
+}
+.seeder-progress-fill {
+  height: 100%; background: var(--green); border-radius: 2px;
+  transition: width 0.3s ease; width: 0%;
+}
+.seeder-progress-fill.running { background: var(--blue); }
+
+.seeder-console {
+  background: var(--gray-900); border-radius: 10px; padding: 12px 14px;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px;
+  color: #a3e635; line-height: 1.6; max-height: 200px; overflow-y: auto;
+  margin-bottom: 12px; display: none;
+}
+.seeder-console.visible { display: block; }
+.seeder-console::-webkit-scrollbar { width: 6px; }
+.seeder-console::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+.seeder-status {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; color: var(--gray-400);
+  margin-bottom: 14px;
+}
+.seeder-status-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--gray-300);
+}
+.seeder-status-dot.running { background: var(--blue); animation: pulse 1s infinite; }
+.seeder-status-dot.done { background: var(--green); }
+.seeder-status-dot.error { background: var(--red); }
+
+/* AUTH NAV */
+.nav-user { font-size: 11px; font-weight: 500; color: var(--gray-400); }
+.nav-logout {
+  background: none; border: 1px solid var(--gray-200); border-radius: 6px;
+  padding: 4px 8px; cursor: pointer; color: var(--gray-400); transition: all 0.15s;
+  display: inline-flex; align-items: center;
+}
+.nav-logout:hover { background: var(--red-light); border-color: var(--red-border); color: var(--red); }
+.nav-logout svg { width: 14px; height: 14px; }
+
 @media (max-width: 900px) {
-  .layout { display: block; }
-  .sidebar { display: none; }
   main { padding: 24px 20px 60px; }
   .versus { grid-template-columns: 1fr; }
   .nextstep { grid-template-columns: 1fr; }
   .dataset-rows { grid-template-columns: 1fr; }
+  .seeder-config { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -333,68 +372,29 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
     <div class="nav-right">
       <span class="nav-dataset">🪄 Dataset Poudlard</span>
       <span class="nav-badge">⏱ 60 min</span>
+      <div class="nav-sep"></div>
+      <span class="nav-user" id="navUser"></span>
+      <button class="nav-logout" id="btnLogout" onclick="logout()" title="Déconnexion">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      </button>
     </div>
   </div>
 </nav>
 
 <!-- PROGRESS BAR -->
 <div class="progress-bar" id="progressBar">
+  <div class="progress-seg" style="flex:2" data-target="prep" title="Préparation — Seeder"></div>
   <div class="progress-seg active" style="flex:5" data-target="s0" title="Accroche — 0-5 min"></div>
   <div class="progress-seg" style="flex:10" data-target="s1" title="Structure — 5-15 min"></div>
   <div class="progress-seg" style="flex:15" data-target="s2" title="Inscription — 15-30 min"></div>
   <div class="progress-seg" style="flex:18" data-target="s3" title="Pédagogie — 30-48 min"></div>
   <div class="progress-seg" style="flex:7" data-target="s4" title="Finance & RH — 48-55 min"></div>
-  <div class="progress-seg" style="flex:5" data-target="s5" title="Clôture — 55-60 min"></div>
+  <div class="progress-seg" style="flex:2" data-target="s5" title="Ressources partagées — 55-57 min"></div>
+  <div class="progress-seg" style="flex:3" data-target="s6" title="Conclusion — 57-60 min"></div>
 </div>
 
 <!-- LAYOUT -->
 <div class="layout">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
-    <span class="sidebar-label">Séquences</span>
-    <a class="sidebar-link active" data-target="s0" href="#s0">
-      <span class="sidebar-dot" style="background:#3a786c"></span>
-      <span>L'Accroche</span>
-      <span class="sidebar-time">5 min</span>
-    </a>
-    <a class="sidebar-link" data-target="s1" href="#s1">
-      <span class="sidebar-dot" style="background:#3a6c96"></span>
-      <span>Structure & Concepts</span>
-      <span class="sidebar-time">10 min</span>
-    </a>
-    <a class="sidebar-link" data-target="s2" href="#s2">
-      <span class="sidebar-dot" style="background:#b37a2a"></span>
-      <span>Inscription Harry</span>
-      <span class="sidebar-time">15 min</span>
-    </a>
-    <a class="sidebar-link" data-target="s3" href="#s3">
-      <span class="sidebar-dot" style="background:#6b33b3"></span>
-      <span>Pédagogie</span>
-      <span class="sidebar-time">18 min</span>
-    </a>
-    <a class="sidebar-link" data-target="s4" href="#s4">
-      <span class="sidebar-dot" style="background:#2e7d52"></span>
-      <span>Finance & RH</span>
-      <span class="sidebar-time">7 min</span>
-    </a>
-    <a class="sidebar-link" data-target="s5" href="#s5">
-      <span class="sidebar-dot" style="background:#b33a6b"></span>
-      <span>Vue 360° & Clôture</span>
-      <span class="sidebar-time">5 min</span>
-    </a>
-
-    <div style="margin-top: 24px; border-top: 1px solid var(--gray-200); padding-top: 16px;">
-      <span class="sidebar-label">Dataset</span>
-      <div style="font-size: 11px; color: var(--gray-500); padding: 0 8px; line-height: 1.7;">
-        <div><strong style="color:var(--gray-900)">Harry Potter</strong></div>
-        <div style="color: var(--gray-400)">26PH01542</div>
-        <div style="color: var(--gray-400); margin-top:4px">students/1542</div>
-        <div style="margin-top:6px"><strong style="color:var(--gray-900)">Master Magie Avancée</strong></div>
-        <div style="color:var(--gray-400)">9 000€ · /formulas/107</div>
-      </div>
-    </div>
-  </aside>
 
   <!-- MAIN -->
   <main>
@@ -409,6 +409,93 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
         <h1>Parcours de démo — 60 minutes</h1>
         <p>Prompteur complet pour la démonstration Neil en visioconférence. Chaque séquence indique la navigation exacte, les actions à réaliser, et la phrase clé à prononcer.</p>
       </div>
+
+      <!-- ═══ PREP — PRÉPARATION ═══ -->
+      <section class="demo-section collapsed" id="prep">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-num" style="background:var(--gray-50);color:var(--gray-500);border:1px solid var(--gray-200)">⚙</div>
+          <div class="section-header-text">
+            <h2>Préparation</h2>
+            <div class="section-sub">Seeder Poudlard · Vérification de l'environnement</div>
+          </div>
+          <span class="section-timing" style="background:var(--gray-50);border:1px solid var(--gray-200);color:var(--gray-500);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px">Avant la démo</span>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="section-body">
+          <div class="callout callout-orange">
+            <strong>⚠️ Prérequis :</strong> Cette étape doit être réalisée <strong>avant</strong> la visio avec le prospect. Le seeder génère l'intégralité du dataset Poudlard (~75 étudiants, 20 collaborateurs, inscriptions, notes, planning…) sur l'environnement de démo Neil.
+          </div>
+
+          <!-- Configuration API -->
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+              <div class="entity-head-text">
+                <h3>Configuration</h3>
+                <p>Environnement cible pour le seeding des données</p>
+              </div>
+            </div>
+            <div class="seeder-config">
+              <div class="seeder-field">
+                <label>URL de l'API</label>
+                <input type="text" id="seederUrl" placeholder="https://neil-claude.erp.neil.app/api">
+              </div>
+              <div class="seeder-field">
+                <label>Clé API</label>
+                <input type="password" id="seederKey" placeholder="Clé d'authentification">
+              </div>
+            </div>
+            <button class="seeder-btn seeder-btn-secondary" onclick="saveConfig()" id="btnSaveConfig">Enregistrer la configuration</button>
+          </div>
+
+          <!-- Générateur de séances -->
+          <div class="entity">
+            <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <div class="entity-head-text">
+                <h3>Générateur de séances</h3>
+                <p class="seeder-desc">Génère des séances pour tous les modules existants, avec des intervenants aléatoires, sur la plage de dates indiquée.</p>
+              </div>
+            </div>
+
+            <div class="seeder-config">
+              <div class="seeder-field">
+                <label>Du</label>
+                <input type="date" id="seederDateStart" value="2025-09-01">
+              </div>
+              <div class="seeder-field">
+                <label>Au</label>
+                <input type="date" id="seederDateEnd" value="2026-06-30">
+              </div>
+            </div>
+
+            <div class="seeder-actions">
+              <button class="seeder-btn seeder-btn-primary" id="btnGenerate" onclick="generateSessions()">▶ Générer les séances</button>
+              <button class="seeder-btn seeder-btn-danger" id="btnStop" onclick="stopGeneration()" disabled>■ Arrêter</button>
+            </div>
+
+            <div class="seeder-status" id="seederStatus">
+              <div class="seeder-status-dot" id="seederStatusDot"></div>
+              <span id="seederStatusText">En attente</span>
+            </div>
+
+            <div class="seeder-progress-bar">
+              <div class="seeder-progress-fill" id="seederProgressFill"></div>
+            </div>
+
+            <div class="seeder-console" id="seederConsole"></div>
+          </div>
+
+          <div class="callout callout-green" id="seederChecklist" style="opacity:0.5">
+            <strong>✅ Checklist avant de démarrer :</strong><br>
+            → Harry Potter visible dans Secrétariat → Étudiants<br>
+            → Planning rempli avec des séances<br>
+            → Notes et bulletins générés<br>
+            → Espace étudiant activable
+          </div>
+        </div>
+      </section>
 
       <!-- ═══ S0 — ACCROCHE ═══ -->
       <section class="demo-section" id="s0">
@@ -441,7 +528,7 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
               </div>
             </div>
             <div class="nav-path">
-              <span class="url">neil-claude.erp.neil.app/</span>
+              <span>Accueil</span>
             </div>
             <ol class="steps">
               <li class="step">
@@ -579,12 +666,39 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
 
         <div class="section-body">
           <div class="dataset">
-            <div class="dataset-title">🗂 Dataset de démo</div>
+            <div class="dataset-title">🗂 Dataset de démo — Harry Potter</div>
             <div class="dataset-rows">
-              <div class="dataset-row"><span class="dataset-key">Étudiant :</span><span class="dataset-val">POTTER Harry — 26PH01542</span></div>
-              <div class="dataset-row"><span class="dataset-key">Email :</span><span class="dataset-val">harry.potter14@poudlard-neil.fr</span></div>
-              <div class="dataset-row"><span class="dataset-key">Né le :</span><span class="dataset-val">17/06/2008</span></div>
+              <div class="dataset-row"><span class="dataset-key">Étudiant :</span><span class="dataset-val">POTTER Harry</span></div>
               <div class="dataset-row"><span class="dataset-key">Particularités :</span><span class="dataset-val">Sportif de haut niveau · CVEC renseigné</span></div>
+              <div class="dataset-row"><span class="dataset-key">Inscrit à :</span><span class="dataset-val">ASPIC & Spécialisations — 5 000€ (2025-2026)</span></div>
+              <div class="dataset-row"><span class="dataset-key">Historique :</span><span class="dataset-val">Prépa (2023-24) → BUSE (2024-25) → ASPIC (2025-26)</span></div>
+              <div class="dataset-row"><span class="dataset-key">Formule démo :</span><span class="dataset-val">Master Magie Avancée — 9 000€ (inscription créée en live)</span></div>
+              <div class="dataset-row"><span class="dataset-key">Étapes Master :</span><span class="dataset-val">Candidature → Entretien jury → Choix spé. → Inscription</span></div>
+              <div class="dataset-row"><span class="dataset-key">Réductions :</span><span class="dataset-val">Bourse Ordre de Merlin (2 000€) · Ancien élève (10%)</span></div>
+              <div class="dataset-row"><span class="dataset-key">Diplôme :</span><span class="dataset-val">Master en Magie Avancée (RNCP 7)</span></div>
+            </div>
+          </div>
+
+          <div class="dataset" style="background:var(--blue-light);border-color:var(--blue-border)">
+            <div class="dataset-title" style="color:var(--blue)">🏫 Infrastructure Poudlard</div>
+            <div class="dataset-rows">
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--blue)">Société :</span><span class="dataset-val">SAS Poudlard Éducation Magique</span></div>
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--blue)">École :</span><span class="dataset-val">Poudlard — École de Sorcellerie</span></div>
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--blue)">Campus :</span><span class="dataset-val">Campus Pdlrd — Pré-au-Lard</span></div>
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--blue)">Centre :</span><span class="dataset-val">Château de Poudlard — 4 salles (25 à 96 places)</span></div>
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--blue)">Étudiants :</span><span class="dataset-val">~75 personnages Harry Potter</span></div>
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--blue)">Collaborateurs :</span><span class="dataset-val">20 (Dumbledore, McGonagall, Rogue, Pomfresh…)</span></div>
+            </div>
+          </div>
+
+          <div class="dataset" style="background:var(--green-light);border-color:var(--green-border)">
+            <div class="dataset-title" style="color:var(--green)">💰 Les 5 formules</div>
+            <div class="dataset-rows" style="grid-template-columns:1fr">
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--green)">Cursus BUSE :</span><span class="dataset-val">7 000€ · L1-L3 · 1 000h · Bourse Ministère (1 200€)</span></div>
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--green)">Prépa Sorcière :</span><span class="dataset-val">3 800€ · Prépa · 220h · Aide Né-Moldu (500€)</span></div>
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--green)">ASPIC & Spé. :</span><span class="dataset-val">5 000€ · M1 · 400h · Excellence BUSE (800€)</span></div>
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--green)">Quidditch :</span><span class="dataset-val">3 500€ · L1-L3 · 300h · Bourse sportive (600€)</span></div>
+              <div class="dataset-row"><span class="dataset-key" style="color:var(--green)">Master Magie :</span><span class="dataset-val">9 000€ · M1-M2 · 500h · Bourse Ordre de Merlin (2 000€)</span></div>
             </div>
           </div>
 
@@ -602,7 +716,6 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
               <span>Gestion des étudiants</span><span class="arrow">›</span>
               <span>Recherche "Harry Potter"</span><span class="arrow">›</span>
               <span>POTTER Harry</span>
-              <span class="url">students/1542/informations</span>
             </div>
             <ol class="steps">
               <li class="step">
@@ -616,12 +729,7 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
               </li>
               <li class="step">
                 <div class="step-num step-num-orange">3</div>
-                <div class="step-text">Montrer : <strong>photo, NSS, CVEC, sportif de haut niveau</strong>, email, numéro 26PH01542</div>
-              </li>
-              <li class="step">
-                <div class="step-num step-num-orange">4</div>
-                <div class="step-text">Aller dans l'onglet <strong>Inscriptions</strong> pour montrer l'<strong>historique multi-années</strong> et la détection d'homonymes : nom + prénom + date de naissance
-                <span class="step-tip">Si Harry revient dans 3 ans pour un autre cursus, Neil l'identifie et agrège son historique.</span></div>
+                <div class="step-text">Survoler rapidement les champs de l'étudiant</div>
               </li>
             </ol>
           </div>
@@ -638,7 +746,6 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
             <div class="nav-path">
               <span>Secrétariat</span><span class="arrow">›</span>
               <span>POTTER Harry</span>
-              <span class="url">students/1542/informations</span>
             </div>
             <ol class="steps">
               <li class="step">
@@ -648,7 +755,8 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
               </li>
               <li class="step">
                 <div class="step-num step-num-orange">2</div>
-                <div class="step-text">Pointer l'onglet <strong>Inscriptions</strong> : si Harry revient pour un autre cursus dans 3 ans, toute son histoire est déjà là.</div>
+                <div class="step-text">Pointer l'onglet <strong>Inscriptions</strong> — montrer l'historique complet d'Harry : <strong>Prépa Sorcière</strong> (2023-24) → <strong>Cursus BUSE</strong> (2024-25) → <strong>ASPIC & Spécialisations</strong> (2025-26). Chaque cursus est tracé, avec ses formations et ses échéanciers respectifs.
+                <span class="step-tip">Même si Harry change de cursus chaque année, toute son histoire est là. Aucune perte de données entre les cycles.</span></div>
               </li>
               <li class="step">
                 <div class="step-num step-num-orange">3</div>
@@ -663,7 +771,7 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
             <div class="entity-head">
               <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
               <div class="entity-head-text">
-                <h3>Acte 3 — Inscription à la formule</h3>
+                <h3>Acte 3 — Nouvelle inscription au Master</h3>
                 <p>Parcours complet · Formule, étapes, réductions, échéancier, facturation, formations</p>
               </div>
             </div>
@@ -675,11 +783,12 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
             <ol class="steps">
               <li class="step">
                 <div class="step-num step-num-orange">1</div>
-                <div class="step-text">Choisir la formule <strong>Master Magie Avancée</strong> (9 000€, M1/M2)</div>
+                <div class="step-text">Cliquer <strong>+ Nouvelle inscription</strong> et choisir la formule <strong>Master Magie Avancée</strong> (9 000€, M1/M2).
+                <span class="step-tip">Harry a déjà un historique (Prépa → BUSE → ASPIC). On lui ajoute un nouveau cursus — Neil gère naturellement les multi-inscriptions et l'historique complet.</span></div>
               </li>
               <li class="step">
                 <div class="step-num step-num-orange">2</div>
-                <div class="step-text">Présenter l'ensemble du <strong>parcours d'inscription</strong> : choix de la formule, étapes d'inscription configurées, réductions applicables, échéancier de paiement, facturation et formations rattachées. Valider l'inscription.
+                <div class="step-text">Présenter l'ensemble du <strong>parcours d'inscription</strong> : les 4 étapes (Candidature → Entretien jury → Choix spé. → Inscription), réductions applicables, échéancier de paiement, facturation et formations rattachées. Valider l'inscription.
                 <span class="step-tip">⚠️ Ne pas créer de facture à ce stade — s'arrêter avant la génération de la facture.</span></div>
               </li>
               <li class="step">
@@ -754,9 +863,36 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
 
           <div class="entity">
             <div class="entity-head">
+              <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <div class="entity-head-text">
+                <h3>Acte 1 — Formation & Classes</h3>
+                <p>Sélection de la formation · Ensembles de classes · Groupes</p>
+              </div>
+            </div>
+            <div class="nav-path">
+              <span>Pédagogie</span><span class="arrow">›</span>
+              <span>Formations</span><span class="arrow">›</span>
+              <span>Master Magie Avancée & Spécialisations Ministère</span>
+            </div>
+            <ol class="steps">
+              <li class="step">
+                <div class="step-num step-num-purple">1</div>
+                <div class="step-text">Depuis <strong>Pédagogie</strong>, cliquer sur <strong>Formations</strong>. Sélectionner la formation <strong>Master Magie Avancée & Spécialisations Ministère</strong>.
+                <span class="step-tip">La formation est la brique pédagogique : elle porte les UE, les modules, le planning et les notes. Indépendante de l'offre commerciale (la formule), elle peut alimenter plusieurs formules à la fois.</span></div>
+              </li>
+              <li class="step">
+                <div class="step-num step-num-purple">2</div>
+                <div class="step-text">Cliquer sur <strong>Classes</strong>. Montrer les <strong>ensembles de classes</strong> : ici, l'ensemble « Maisons » regroupe les 4 classes Gryffondor, Serpentard, Serdaigle et Poufsouffle.
+                <span class="step-tip">Un ensemble de classes est un découpage logique de la promotion. On peut avoir plusieurs ensembles en parallèle : par maison, par niveau, par groupe de TD… Chaque séance peut cibler un ensemble complet ou un groupe en particulier.</span></div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="entity">
+            <div class="entity-head">
               <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
               <div class="entity-head-text">
-                <h3>Acte 1 — Modules & industrialisation</h3>
+                <h3>Acte 2 — Modules & industrialisation</h3>
                 <p>Bibliothèque pédagogique · Permanent vs non-permanent</p>
               </div>
             </div>
@@ -787,7 +923,7 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
             <div class="entity-head">
               <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
               <div class="entity-head-text">
-                <h3>Acte 2 — Documents du module</h3>
+                <h3>Acte 3 — Documents du module</h3>
                 <p>Options de diffusion · Encodage vidéo intégré</p>
               </div>
             </div>
@@ -799,7 +935,7 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
             <ol class="steps">
               <li class="step">
                 <div class="step-num step-num-purple">1</div>
-                <div class="step-text">Sélectionner le module <strong>Guérison des maléfices</strong> et cliquer sur <strong>Documents étudiants</strong></div>
+                <div class="step-text">Sélectionner le module <strong>Cours Création de sortilèges — Cours 1</strong> et cliquer sur <strong>Documents étudiants</strong></div>
               </li>
               <li class="step">
                 <div class="step-num step-num-purple">2</div>
@@ -824,7 +960,7 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
             <div class="entity-head">
               <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></svg>
               <div class="entity-head-text">
-                <h3>Acte 3 — Créer une séance · options de programmation</h3>
+                <h3>Acte 4 — Créer une séance · options de programmation</h3>
                 <p>Formulaire complet · présentiel, visio, brouillon, intervenants</p>
               </div>
             </div>
@@ -836,7 +972,7 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
             <ol class="steps">
               <li class="step">
                 <div class="step-num step-num-purple">1</div>
-                <div class="step-text">Dans le module <strong>Guérison des maléfices</strong>, cliquer sur <strong>Séances</strong> puis sur <strong>+ Ajouter une séance</strong></div>
+                <div class="step-text">Dans le module <strong>Cours Création de sortilèges — Cours 1</strong>, cliquer sur <strong>Séances</strong> puis sur <strong>+ Ajouter une séance</strong></div>
               </li>
               <li class="step">
                 <div class="step-num step-num-purple">2</div>
@@ -876,7 +1012,7 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
             <div class="entity-head">
               <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
               <div class="entity-head-text">
-                <h3>Acte 4 — Notes & Relevés</h3>
+                <h3>Acte 5 — Notes & Relevés</h3>
                 <p>Liste des relevés · Détail d'un relevé · Notes par étudiant</p>
               </div>
             </div>
@@ -917,7 +1053,7 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
             <div class="wow-icon">✨</div>
             <div class="wow-body">
               <div class="wow-label">Effet WOW #4</div>
-              <div class="wow-text">« Notes saisies il y a 30 secondes → note composée calculée automatiquement. Pour 200 étudiants : toujours 3 clics. »</div>
+              <div class="wow-text">« Vos enseignants saisissent leurs notes dans Excel, importent le fichier en un clic — et vous générez vos bulletins à tout moment, sur un référentiel adapté. Zéro re-saisie, zéro consolidation manuelle. »</div>
             </div>
           </div>
         </div>
@@ -1016,7 +1152,7 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
               <li class="step">
                 <div class="step-num step-num-green">2</div>
                 <div class="step-text">Cliquer <strong>+ Ajouter un droit d'accès</strong> pour montrer la mécanique :
-                <span class="step-tip">Étape 1 — choisir le <strong>Rôle</strong> (ex. Administrateur, Directeur d'école, Enseignant, Responsable commercial…). Étape 2 — configurer les <strong>restrictions de scope</strong> qui limitent l'application de ce rôle.</span></div>
+                <span class="step-tip">Étape 1 — choisir le <strong>Rôle</strong> (ex. Responsable pédagogique, Directeur d'école, Enseignant, Responsable commercial…). Étape 2 — configurer les <strong>restrictions de scope</strong> qui limitent l'application de ce rôle.</span></div>
               </li>
               <li class="step">
                 <div class="step-num step-num-green">3</div>
@@ -1047,8 +1183,8 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
               </li>
               <li class="step">
                 <div class="step-num step-num-green">4</div>
-                <div class="step-text">Souligner la <strong>cumulabilité</strong> : un coordinateur pédagogique peut avoir le rôle <em>Enseignant</em> sur toutes les formations M1, <em>et</em> le rôle <em>Administrateur</em> restreint à l'année 2025-2026 sur un seul campus. Les droits s'additionnent.
-                <span class="step-tip">Exemple Poudlard : DUMBLEDORE est Directeur d'école sans restriction. McGonagall pourrait être Administratrice uniquement sur le Campus Pré-au-Lard pour l'année 2025-2027.</span></div>
+                <div class="step-text">Souligner la <strong>cumulabilité</strong> : un coordinateur pédagogique peut avoir le rôle <em>Enseignant</em> sur toutes les formations M1, <em>et</em> le rôle <em>Responsable pédagogique</em> restreint à l'année 2025-2026 sur un seul campus. Les droits s'additionnent.
+                <span class="step-tip">Exemple Poudlard : DUMBLEDORE est Directeur d'école sans restriction. McGonagall pourrait être Responsable pédagogique uniquement sur le Campus Pré-au-Lard pour l'année 2025-2027.</span></div>
               </li>
             </ol>
           </div>
@@ -1061,10 +1197,10 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
         <div class="section-header" onclick="toggleSection(this)">
           <div class="section-num" style="background:#fde8f5;color:#b33a6b">5</div>
           <div class="section-header-text">
-            <h2>Ressources partagées & Clôture</h2>
-            <div class="section-sub">Ressources partagées · Qualification · Prochaines étapes</div>
+            <h2>Ressources partagées</h2>
+            <div class="section-sub">Bibliothèque pédagogique</div>
           </div>
-          <span class="section-timing" style="background:#fde8f5;border:1px solid #eccce4;color:#b33a6b;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px">5 min</span>
+          <span class="section-timing" style="background:#fde8f5;border:1px solid #eccce4;color:#b33a6b;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px">2 min</span>
           <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
 
@@ -1073,48 +1209,43 @@ main { flex: 1; min-width: 0; padding: 32px 40px 80px; }
             <div class="entity-head">
               <svg class="entity-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
               <div class="entity-head-text">
-                <h3>Ressources partagées — deux espaces distincts</h3>
-                <p>Documents centralisés · Accessibles à toute l'organisation</p>
+                <h3>Ressources partagées pédagogiques</h3>
+                <p>Bibliothèque de documents · Diffusion aux étudiants</p>
               </div>
             </div>
-
-            <div class="callout callout-blue" style="margin-bottom:16px">
-              <strong>Principe :</strong> les Ressources partagées sont des bibliothèques de documents centralisées dans Neil, accessibles à tous les membres de l'organisation selon leurs droits. Il en existe deux, avec des périmètres différents.
+            <div class="nav-path">
+              <span>Pédagogie</span><span class="arrow">›</span>
+              <span>Ressources partagées</span>
             </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px">
-              <div style="background:#e8f5f1;border:1px solid #c4e0d8;border-radius:10px;padding:14px 16px">
-                <div style="font-size:11px;font-weight:700;color:#3a786c;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">🗂 Ressources partagées du Secrétariat</div>
-                <div style="font-size:12px;color:#333;margin-bottom:6px">Documents administratifs destinés au secrétariat : règlements intérieurs, chartes, formulaires, modèles de contrats…</div>
-                <div style="font-size:11px;color:#3a786c;font-family:monospace">Secrétariat › Ressources partagées</div>
-              </div>
-              <div style="background:#eaf2f8;border:1px solid #c4d8e8;border-radius:10px;padding:14px 16px">
-                <div style="font-size:11px;font-weight:700;color:#3a6c96;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">📚 Ressources partagées Pédagogiques</div>
-                <div style="font-size:12px;color:#333;margin-bottom:6px">Documents pédagogiques partagés à toute l'équipe : syllabi, trames de cours, référentiels de compétences…</div>
-                <div style="font-size:11px;color:#3a6c96;font-family:monospace">Pédagogie › Ressources partagées</div>
-              </div>
-            </div>
-
             <ol class="steps">
               <li class="step">
                 <div class="step-num" style="background:#fde8f5;color:#b33a6b;border:1px solid #eccce4;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">1</div>
-                <div class="step-text">Ouvrir <strong>Secrétariat → Ressources partagées</strong> — montrer la zone de dépôt, le filtre par <strong>année scolaire</strong> et les trois onglets : <em>Ressources partagées / Corbeille / Journal d'activités</em>
-                <span class="step-tip">Le Journal d'activités trace qui a déposé, modifié ou supprimé chaque document — utile en cas d'audit ou de conformité.</span></div>
+                <div class="step-text">Ouvrir <strong>Pédagogie → Ressources partagées</strong> — présenter les grands principes : organisation par <strong>étiquettes</strong>, <strong>accessibilité liée aux droits et périmètres</strong> des utilisateurs, et <strong>versioning</strong> des documents.
+                <span class="step-tip">Tout intervenant avec les bons droits peut déposer ses supports sans passer par un drive externe. Ces ressources peuvent être référencées dans un module ou une séance pour être diffusées sur l'espace étudiant.</span></div>
               </li>
               <li class="step">
                 <div class="step-num" style="background:#fde8f5;color:#b33a6b;border:1px solid #eccce4;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">2</div>
-                <div class="step-text">Basculer sur <strong>Pédagogie → Ressources partagées</strong> — même structure, périmètre pédagogique. Tout intervenant avec les bons droits peut y déposer ses supports sans passer par un drive externe.
-                <span class="step-tip">Ces ressources peuvent être référencées dans un module ou une séance pour être diffusées directement sur l'espace étudiant, selon la politique de diffusion choisie.</span></div>
-              </li>
-              <li class="step">
-                <div class="step-num" style="background:#fde8f5;color:#b33a6b;border:1px solid #eccce4;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px">3</div>
-                <div class="step-text">Souligner le <strong>gain organisationnel</strong> : fini le drive partagé non sécurisé, les versions qui se multiplient, les liens expirés. Un seul endroit, versionné, filtrable, tracé.</div>
+                <div class="step-text">Préciser que des <strong>ressources partagées sont disponibles pour tous les services</strong> de Neil (Secrétariat, Pédagogie, etc.) — même structure, même logique, périmètre adapté à chaque métier.</div>
               </li>
             </ol>
           </div>
 
-          <div class="sep"></div>
+        </div>
+      </section>
 
+      <!-- ═══ S6 — CONCLUSION ═══ -->
+      <section class="demo-section collapsed" id="s6">
+        <div class="section-header" onclick="toggleSection(this)">
+          <div class="section-num" style="background:var(--red-light);color:var(--red)">6</div>
+          <div class="section-header-text">
+            <h2>Conclusion</h2>
+            <div class="section-sub">Qualification · Prochaines étapes</div>
+          </div>
+          <span class="section-timing" style="background:var(--red-light);border:1px solid var(--red-border);color:var(--red);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px">3 min</span>
+          <svg class="section-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+
+        <div class="section-body">
           <div class="questions">
             <div class="questions-title">Questions de qualification</div>
             <div class="question"><span class="question-mark">?</span><span class="question-text">Quelle partie vous parle le plus par rapport à votre situation actuelle ?</span></div>
@@ -1158,45 +1289,175 @@ function toggleSection(header) {
   const section = header.closest('.demo-section');
   const wasCollapsed = section.classList.contains('collapsed');
   section.classList.toggle('collapsed');
-  // Update sidebar + progress bar active state
   const id = section.id;
-  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
   document.querySelectorAll('.progress-seg').forEach(s => s.classList.remove('active'));
-  if (!wasCollapsed) return; // if we just closed, no active state needed
-  const sLink = document.querySelector('.sidebar-link[data-target="' + id + '"]');
+  if (!wasCollapsed) return;
   const sSeg = document.querySelector('.progress-seg[data-target="' + id + '"]');
-  if (sLink) sLink.classList.add('active');
   if (sSeg) sSeg.classList.add('active');
 }
 
-// Sidebar & progress bar click navigation
-document.querySelectorAll('.sidebar-link, .progress-seg').forEach(el => {
+// Progress bar click navigation
+document.querySelectorAll('.progress-seg').forEach(el => {
   el.addEventListener('click', function(e) {
     const target = this.dataset.target;
     if (!target) return;
     const section = document.getElementById(target);
     if (!section) return;
-    // Open target section, close others
     document.querySelectorAll('.demo-section').forEach(s => {
       if (s.id === target) s.classList.remove('collapsed');
       else s.classList.add('collapsed');
     });
-    // Active states
-    document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
     document.querySelectorAll('.progress-seg').forEach(s => s.classList.remove('active'));
-    const sLink = document.querySelector('.sidebar-link[data-target="' + target + '"]');
     const sSeg = document.querySelector('.progress-seg[data-target="' + target + '"]');
-    if (sLink) sLink.classList.add('active');
     if (sSeg) sSeg.classList.add('active');
-    // Scroll
     setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
   });
 });
 
-// Intercept anchor clicks on sidebar
-document.querySelectorAll('.sidebar-link').forEach(el => {
-  el.addEventListener('click', e => e.preventDefault());
-});
+/* ═══ SEEDER API ═══ */
+let seederPolling = null;
+
+// Load config on page load
+async function loadConfig() {
+  try {
+    const res = await fetch('/api/config');
+    const data = await res.json();
+    if (data.base_url) document.getElementById('seederUrl').value = data.base_url;
+    if (data.key) document.getElementById('seederKey').value = data.key;
+  } catch (e) { /* server not running or static mode */ }
+}
+
+async function saveConfig() {
+  const btn = document.getElementById('btnSaveConfig');
+  const base_url = document.getElementById('seederUrl').value;
+  const key = document.getElementById('seederKey').value;
+  try {
+    const res = await fetch('/api/config', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ base_url, key })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      btn.textContent = '✓ Enregistré';
+      setTimeout(() => btn.textContent = 'Enregistrer la configuration', 2000);
+    }
+  } catch (e) {
+    btn.textContent = '✗ Erreur';
+    setTimeout(() => btn.textContent = 'Enregistrer la configuration', 2000);
+  }
+}
+
+async function generateSessions() {
+  const startDate = document.getElementById('seederDateStart').value;
+  const endDate = document.getElementById('seederDateEnd').value;
+  if (!startDate || !endDate) { setStatus('Veuillez renseigner les deux dates', 'error'); return; }
+  if (startDate >= endDate) { setStatus('La date de fin doit être postérieure', 'error'); return; }
+  try {
+    const res = await fetch('/api/sessions/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ start_date: startDate, end_date: endDate })
+    });
+    const data = await res.json();
+    if (data.ok) startPolling();
+    else if (data.error) setStatus(data.error, 'error');
+  } catch (e) { setStatus('Impossible de contacter le serveur', 'error'); }
+}
+
+async function stopGeneration() {
+  try { await fetch('/api/sessions/stop', { method: 'POST' }); } catch (e) {}
+}
+
+function startPolling() {
+  if (seederPolling) clearInterval(seederPolling);
+  seederPolling = setInterval(pollStatus, 800);
+  pollStatus();
+}
+
+async function pollStatus() {
+  try {
+    const res = await fetch('/api/sessions/status');
+    const data = await res.json();
+    updateUI(data);
+    if (!data.running && seederPolling) {
+      clearInterval(seederPolling);
+      seederPolling = null;
+    }
+  } catch (e) {}
+}
+
+function updateUI(data) {
+  const btnGen = document.getElementById('btnGenerate');
+  const btnStop = document.getElementById('btnStop');
+  const progressFill = document.getElementById('seederProgressFill');
+  const consoleEl = document.getElementById('seederConsole');
+
+  btnGen.disabled = data.running;
+  btnStop.disabled = !data.running;
+
+  if (data.running) {
+    setStatus(data.status_text || 'Génération en cours…', 'running');
+  } else if (data.done) {
+    setStatus(data.status_text || 'Génération terminée', 'done');
+    document.getElementById('seederChecklist').style.opacity = '1';
+  } else if (data.error) {
+    setStatus(data.status_text || 'Erreur', 'error');
+  } else {
+    setStatus('En attente', '');
+  }
+
+  progressFill.style.width = (data.progress_pct || 0) + '%';
+  progressFill.classList.toggle('running', data.running);
+
+  if (data.output) {
+    consoleEl.classList.add('visible');
+    // Strip ANSI color codes and PROGRESS lines
+    consoleEl.textContent = data.output
+      .replace(/\x1b\[[0-9;]*m/g, '')
+      .replace(/^PROGRESS:\d+$/gm, '')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    consoleEl.scrollTop = consoleEl.scrollHeight;
+  }
+}
+
+function setStatus(text, state) {
+  const dot = document.getElementById('seederStatusDot');
+  const txt = document.getElementById('seederStatusText');
+  dot.className = 'seeder-status-dot' + (state ? ' ' + state : '');
+  txt.textContent = text;
+}
+
+/* ═══ AUTH ═══ */
+const _fetch = window.fetch;
+window.fetch = async function(...args) {
+  const res = await _fetch.apply(this, args);
+  if (res.status === 401 && !String(args[0]).includes('/auth/')) {
+    window.location.href = '/login';
+    throw new Error('Session expired');
+  }
+  return res;
+};
+
+async function loadUser() {
+  try {
+    const res = await fetch('/auth/me');
+    if (res.ok) {
+      const data = await res.json();
+      document.getElementById('navUser').textContent = data.email;
+    }
+  } catch (e) {}
+}
+
+async function logout() {
+  await fetch('/auth/logout', { method: 'POST' });
+  window.location.href = '/login';
+}
+
+// Init
+loadConfig();
+loadUser();
 </script>
 </body>
 </html>

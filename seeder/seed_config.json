@@ -1,0 +1,1176 @@
+{
+  "meta": {
+    "academic_year": "2025-2026",
+    "random_seed": 2026,
+    "version": 1
+  },
+  "api": {
+    "base_url": "https://neil-demo.erp.neil.app/api",
+    "key": "9Ghd8wwx+LkW4414tbG0lF8z.XWnn57Nh81naJqVbS+gC7yAm/jJdfy1ZSijo3txaFrdv6nxYCQR1Yi2ObYgjbYdg"
+  },
+  "schools": [
+    {
+      "key": "school_1",
+      "theme": "poudlard",
+      "name": "Poudlard — École de Sorcellerie",
+      "short": "Pdlrd"
+    }
+  ],
+  "campuses": [
+    {
+      "key": "campus_1_1",
+      "school_key": "school_1",
+      "name": "Campus Pdlrd — Pré-au-Lard",
+      "city": "Pré-au-Lard",
+      "postal": "00001",
+      "zone": "C",
+      "center_keys": [
+        "center_1"
+      ]
+    }
+  ],
+  "companies": [
+    {
+      "key": "company_1",
+      "name": "SAS Poudlard Éducation Magique",
+      "school_keys": [
+        "school_1"
+      ]
+    }
+  ],
+  "levels": [
+    "CPGE",
+    "Prépa",
+    "DEUST",
+    "BTS 1",
+    "BTS 2",
+    "BUT 1",
+    "BUT 2",
+    "BUT 3",
+    "L1",
+    "L2",
+    "L3",
+    "Licence Pro",
+    "M1",
+    "M2",
+    "Mastère Spécialisé",
+    "Diplôme d'Ingénieur",
+    "D1",
+    "D2",
+    "D3"
+  ],
+  "centers": {
+    "rooms_per_campus": 4,
+    "capacity_range": [
+      10,
+      60
+    ],
+    "definitions": [
+      {
+        "key": "center_1",
+        "name": "Château de Poudlard",
+        "color": "#7B1FA2",
+        "addr": "1 chemin de la Forêt Interdite",
+        "city": "Pré-au-Lard",
+        "postal": "00001",
+        "zone": "C",
+        "hours_template": "etendu",
+        "rooms": [
+          {
+            "name": "Grande Salle — Aile Gryffondor",
+            "capacity": 96
+          },
+          {
+            "name": "Salle de cours — Tour Gryffondor",
+            "capacity": 38
+          },
+          {
+            "name": "Cachots — Salle Rogue",
+            "capacity": 25
+          },
+          {
+            "name": "Salle sur Demande — Config. Défense",
+            "capacity": 54
+          }
+        ]
+      }
+    ]
+  },
+  "formations": [
+    {
+      "key": "formation_1_1",
+      "school_key": "school_1",
+      "name": "Tronc commun Poudlard — École de Sorcellerie — BUSE",
+      "campus_keys": [
+        "campus_1_1"
+      ],
+      "hours": 1000,
+      "theme": "poudlard_tronc",
+      "levels": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "capacity": 100,
+      "year_span": 3
+    },
+    {
+      "key": "formation_1_2",
+      "school_key": "school_1",
+      "name": "Prépa Pdlrd — Initiation Magique",
+      "campus_keys": [
+        "campus_1_1"
+      ],
+      "hours": 220,
+      "theme": "poudlard_prepa",
+      "levels": [
+        "Prépa"
+      ],
+      "capacity": 80,
+      "year_span": 1
+    },
+    {
+      "key": "formation_1_3",
+      "school_key": "school_1",
+      "name": "Prépa Pdlrd — Approfondissement Magique",
+      "campus_keys": [
+        "campus_1_1"
+      ],
+      "hours": 220,
+      "theme": "poudlard_prepa",
+      "levels": [
+        "Prépa"
+      ],
+      "capacity": 80,
+      "year_span": 1
+    },
+    {
+      "key": "formation_1_4",
+      "school_key": "school_1",
+      "name": "ASPIC Pdlrd — Spécialisations",
+      "campus_keys": [
+        "campus_1_1"
+      ],
+      "hours": 400,
+      "theme": "poudlard_aspic",
+      "levels": [
+        "M1"
+      ],
+      "capacity": 60,
+      "year_span": 1
+    },
+    {
+      "key": "formation_1_5",
+      "school_key": "school_1",
+      "name": "Perfectionnement Quidditch & Sports Magiques",
+      "campus_keys": [
+        "campus_1_1"
+      ],
+      "hours": 300,
+      "theme": "poudlard_quidditch",
+      "levels": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "capacity": 45,
+      "year_span": 1
+    },
+    {
+      "key": "formation_1_6",
+      "school_key": "school_1",
+      "name": "Master Magie Avancée & Spécialisations Ministère",
+      "campus_keys": [
+        "campus_1_1"
+      ],
+      "hours": 500,
+      "theme": "poudlard_master",
+      "levels": [
+        "M1",
+        "M2"
+      ],
+      "capacity": 35,
+      "year_span": 1
+    },
+    {
+      "key": "formation_1_7",
+      "school_key": "school_1",
+      "name": "Stage Professionnel Monde Magique",
+      "campus_keys": [
+        "campus_1_1"
+      ],
+      "hours": 140,
+      "theme": "poudlard_stage",
+      "levels": [
+        "M2"
+      ],
+      "capacity": 30,
+      "year_span": 1
+    }
+  ],
+  "formulas": [
+    {
+      "key": "formula_1_1",
+      "school_key": "school_1",
+      "company_key": "company_1",
+      "name": "Cursus BUSE — Poudlard — École de Sorcellerie",
+      "levels": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "price_cents": 700000,
+      "year_span": 3,
+      "is_salable": true,
+      "formation_keys": [
+        "formation_1_1"
+      ],
+      "steps": [
+        {
+          "name": "Lettre d'admission",
+          "charge_cents": 0,
+          "charge_label": "Hibou postal",
+          "charge_deductible": false,
+          "files": [
+            "Lettre de Poudlard",
+            "Liste de fournitures"
+          ]
+        },
+        {
+          "name": "Cérémonie du Choixpeau",
+          "commission": true,
+          "advance_cents": 80000,
+          "advance_label": "Acompte de rentrée"
+        },
+        {
+          "name": "Inscription définitive",
+          "files": [
+            "Baguette magique enregistrée",
+            "Attestation parentale",
+            "Photo d'identité sorcière"
+          ]
+        }
+      ],
+      "discounts": [
+        {
+          "name": "Bourse du Ministère de la Magie",
+          "amount_cents": 120000
+        },
+        {
+          "name": "Fratrie sorcière",
+          "amount_pct": 15
+        }
+      ],
+      "charges": [
+        {
+          "name": "Fournitures magiques (Fleury & Bott)",
+          "amount_cents": 45000
+        }
+      ],
+      "schedules": [
+        "comptant",
+        "3x",
+        "10_mensualites"
+      ],
+      "degree": {
+        "name": "Brevet Universel de Sorcellerie",
+        "official_name": "BUSE — Brevet Universel de Sorcellerie Élémentaire",
+        "degree_level_id": 9,
+        "code": "BUSE",
+        "rncp_level": 6
+      }
+    },
+    {
+      "key": "formula_1_2",
+      "school_key": "school_1",
+      "company_key": "company_1",
+      "name": "Prépa Sorcière Intensive — Pdlrd",
+      "levels": [
+        "Prépa"
+      ],
+      "price_cents": 380000,
+      "year_span": 1,
+      "is_salable": true,
+      "formation_keys": [
+        "formation_1_2"
+      ],
+      "steps": [
+        {
+          "name": "Réception du hibou",
+          "charge_cents": 0,
+          "charge_label": "Frais de chouette postale",
+          "charge_deductible": false,
+          "files": [
+            "Lettre d'acceptation",
+            "Résultats scolaires moldus"
+          ]
+        },
+        {
+          "name": "Passage au Chemin de Traverse",
+          "advance_cents": 40000,
+          "advance_label": "Acompte de fournitures"
+        },
+        {
+          "name": "Inscription à la Prépa",
+          "files": [
+            "Baguette magique",
+            "Attestation parentale"
+          ]
+        }
+      ],
+      "discounts": [
+        {
+          "name": "Né-Moldu (aide à l'intégration)",
+          "amount_cents": 50000
+        },
+        {
+          "name": "Bourse Pré-au-Lard",
+          "amount_pct": 10
+        }
+      ],
+      "charges": [
+        {
+          "name": "Chaudron, balance et fioles",
+          "amount_cents": 18000
+        },
+        {
+          "name": "Robes de sorcier (Mme Guipure)",
+          "amount_cents": 12000
+        }
+      ],
+      "schedules": [
+        "comptant",
+        "2x"
+      ],
+      "degree": {
+        "name": "Certificat de Prépa Sorcière",
+        "official_name": "Certificat de Préparation aux Arts Magiques",
+        "degree_level_id": 18,
+        "code": "CPS",
+        "rncp_level": 4
+      }
+    },
+    {
+      "key": "formula_1_3",
+      "school_key": "school_1",
+      "company_key": "company_1",
+      "name": "ASPIC & Spécialisations",
+      "levels": [
+        "M1"
+      ],
+      "price_cents": 500000,
+      "year_span": 1,
+      "is_salable": true,
+      "formation_keys": [
+        "formation_1_4"
+      ],
+      "steps": [
+        {
+          "name": "Résultats BUSE",
+          "charge_cents": 5000,
+          "charge_label": "Frais d'examen",
+          "charge_deductible": true,
+          "files": [
+            "Relevé de BUSE",
+            "Lettre de recommandation du directeur de maison"
+          ]
+        },
+        {
+          "name": "Validation des ASPIC",
+          "advance_cents": 60000,
+          "advance_label": "Acompte de spécialisation"
+        },
+        {
+          "name": "Inscription ASPIC",
+          "files": [
+            "Choix de matières",
+            "Attestation parentale"
+          ]
+        }
+      ],
+      "discounts": [
+        {
+          "name": "Excellence BUSE (Optimal)",
+          "amount_cents": 80000
+        },
+        {
+          "name": "Bourse Dumbledore",
+          "amount_pct": 20
+        }
+      ],
+      "charges": [
+        {
+          "name": "Équipement de spécialisation",
+          "amount_cents": 25000
+        }
+      ],
+      "schedules": [
+        "comptant",
+        "2x"
+      ],
+      "degree": {
+        "name": "Accumulation de Sorcellerie",
+        "official_name": "ASPIC — Accumulation de Sorcellerie Particulièrement Intensive et Contraignante",
+        "degree_level_id": 4,
+        "code": "ASPIC",
+        "rncp_level": 7
+      }
+    },
+    {
+      "key": "formula_1_4",
+      "school_key": "school_1",
+      "company_key": "company_1",
+      "name": "Perfectionnement Quidditch & Sports — Pdlrd",
+      "levels": [
+        "L1",
+        "L2",
+        "L3"
+      ],
+      "price_cents": 350000,
+      "year_span": 1,
+      "is_salable": true,
+      "formation_keys": [
+        "formation_1_5"
+      ],
+      "steps": [
+        {
+          "name": "Essais sur le terrain",
+          "charge_cents": 8000,
+          "charge_label": "Frais de sélection",
+          "charge_deductible": true,
+          "files": [
+            "Certificat médical (Mme Pomfresh)",
+            "Autorisation parentale pour vol"
+          ]
+        },
+        {
+          "name": "Sélection par le capitaine",
+          "commission": true,
+          "advance_cents": 35000,
+          "advance_label": "Acompte équipement sportif"
+        },
+        {
+          "name": "Inscription définitive",
+          "files": [
+            "Choix de poste",
+            "Engagement sportif"
+          ]
+        }
+      ],
+      "discounts": [
+        {
+          "name": "Bourse sportive inter-maisons",
+          "amount_cents": 60000
+        },
+        {
+          "name": "Réduction ancien joueur",
+          "amount_pct": 10
+        }
+      ],
+      "charges": [
+        {
+          "name": "Balai de compétition (Nimbus / Éclair de Feu)",
+          "amount_cents": 55000
+        },
+        {
+          "name": "Tenue de Quidditch personnalisée",
+          "amount_cents": 15000
+        }
+      ],
+      "schedules": [
+        "comptant",
+        "3x"
+      ],
+      "degree": {
+        "name": "Brevet de Quidditch Professionnel",
+        "official_name": "Brevet Professionnel de Quidditch et Sports Magiques",
+        "degree_level_id": 11,
+        "code": "BQP",
+        "rncp_level": 6
+      }
+    },
+    {
+      "key": "formula_1_5",
+      "school_key": "school_1",
+      "company_key": "company_1",
+      "name": "Master Magie Avancée",
+      "levels": [
+        "M1",
+        "M2"
+      ],
+      "price_cents": 900000,
+      "year_span": 1,
+      "is_salable": true,
+      "formation_keys": [
+        "formation_1_6"
+      ],
+      "steps": [
+        {
+          "name": "Candidature",
+          "charge_cents": 10000,
+          "charge_label": "Frais de dossier",
+          "charge_deductible": true,
+          "files": [
+            "Relevé ASPIC",
+            "Projet de recherche magique",
+            "Parchemin de motivation"
+          ]
+        },
+        {
+          "name": "Entretien devant le jury",
+          "commission": true,
+          "advance_cents": 150000,
+          "advance_label": "Acompte de recherche"
+        },
+        {
+          "name": "Choix de spécialisation"
+        },
+        {
+          "name": "Inscription définitive",
+          "files": [
+            "Pièce d'identité sorcière",
+            "Serment magique",
+            "RIB Gringotts"
+          ]
+        }
+      ],
+      "discounts": [
+        {
+          "name": "Bourse Ordre de Merlin",
+          "amount_cents": 200000
+        },
+        {
+          "name": "Ancien élève de Poudlard",
+          "amount_pct": 10
+        }
+      ],
+      "charges": [
+        {
+          "name": "Accès Département des Mystères (stage)",
+          "amount_cents": 35000
+        }
+      ],
+      "schedules": [
+        "comptant",
+        "3x",
+        "10_mensualites"
+      ],
+      "optional_formation_keys": [
+        "formation_1_7"
+      ],
+      "option_min": 0,
+      "option_max": 1,
+      "degree": {
+        "name": "Master en Magie Avancée",
+        "official_name": "Master mention Recherche en Magie Avancée et Défense",
+        "degree_level_id": 4,
+        "code": "MMA",
+        "rncp_level": 7
+      }
+    }
+  ],
+  "students": {
+    "total": 50,
+    "by_school": {
+      "school_1": 50
+    },
+    "double_cursus": 0,
+    "dataset": "poudlard"
+  },
+  "employees": {
+    "total": 15,
+    "dataset": "poudlard"
+  },
+  "employers": {
+    "total": 10,
+    "dataset": "poudlard"
+  },
+  "enrollments": {
+    "final_pct": 65,
+    "discount_pct": 30,
+    "minor_pct": 5
+  },
+  "scores": {
+    "mean": 1200,
+    "std": 300,
+    "absent_rate_pct": 3
+  },
+  "absences": {
+    "absence_rate_pct": 8,
+    "delay_rate_pct": 5,
+    "justify_rate_pct": 60
+  },
+  "teaching_units": {
+    "themes": {
+      "poudlard_aspic": {
+        "ues": [
+          {
+            "name": "Botanique magique",
+            "sub_ues": [
+              {
+                "name": "Plantes dangereuses",
+                "weight": 2.5,
+                "courses": [
+                  "Cours Mandragore",
+                  "Cours Filet du Diable",
+                  "Cours Saule Cogneur",
+                  "Cours Tentacula vénéneuse",
+                  "Cours Bubobulb",
+                  "TD Botanique pratique",
+                  "TP Serres avancées"
+                ]
+              },
+              {
+                "name": "Herbologie appliquée",
+                "weight": 2,
+                "courses": [
+                  "Cours Propriétés médicinales",
+                  "Cours Ingrédients de potions",
+                  "Cours Plantes aquatiques magiques",
+                  "Cours Culture en serre",
+                  "TD Herbologie",
+                  "TP Récoltes"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Soins aux Créatures Magiques",
+            "sub_ues": [
+              {
+                "name": "Créatures classifiées",
+                "weight": 2.5,
+                "courses": [
+                  "Cours Hippogriffes",
+                  "Cours Sombrals",
+                  "Cours Niffleurs et Botrucs",
+                  "Cours Scroutts à Pétard",
+                  "Cours Dragons (théorie)",
+                  "TD Soins créatures",
+                  "TP Approche terrain"
+                ]
+              },
+              {
+                "name": "Élevage et conservation",
+                "weight": 2,
+                "courses": [
+                  "Cours Licornes et êtres de la forêt",
+                  "Cours Phénix",
+                  "Cours Elfes de maison (éthique)",
+                  "Cours Réserves magiques",
+                  "TD Conservation",
+                  "TP Enclos pédagogiques"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Étude des Runes et Arithmancie",
+            "sub_ues": [
+              {
+                "name": "Runes anciennes",
+                "weight": 2,
+                "courses": [
+                  "Cours Runes elfiques",
+                  "Cours Runes nordiques",
+                  "Cours Déchiffrage de textes anciens",
+                  "Cours Inscriptions protectrices",
+                  "TD Runes pratiques"
+                ]
+              },
+              {
+                "name": "Arithmancie",
+                "weight": 2,
+                "courses": [
+                  "Cours Numérologie magique",
+                  "Cours Prédictions arithmantiques",
+                  "Cours Formules et équations magiques",
+                  "Cours Matrices de pouvoir",
+                  "TD Arithmancie appliquée"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Vol et Quidditch",
+            "sub_ues": [
+              {
+                "name": "Technique de vol",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Balai — Bases",
+                  "Cours Vol avancé",
+                  "Cours Acrobaties aériennes",
+                  "Cours Entretien du balai",
+                  "TP Vol libre"
+                ]
+              },
+              {
+                "name": "Quidditch et sports magiques",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Règles du Quidditch",
+                  "Cours Stratégies d'équipe",
+                  "Cours Entraînement physique magique",
+                  "Atelier Match inter-maisons"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "poudlard_tronc": {
+        "ues": [
+          {
+            "name": "Sortilèges et Enchantements",
+            "sub_ues": [
+              {
+                "name": "Sortilèges fondamentaux",
+                "weight": 3,
+                "courses": [
+                  "Cours Lumos et Nox",
+                  "Cours Wingardium Leviosa",
+                  "Cours Accio et sortilèges d'attraction",
+                  "Cours Expelliarmus",
+                  "Cours Protego et boucliers magiques",
+                  "Cours Patronus",
+                  "TD Sortilèges offensifs",
+                  "TP Sortilèges pratiques"
+                ]
+              },
+              {
+                "name": "Enchantements avancés",
+                "weight": 2.5,
+                "courses": [
+                  "Cours Enchantements de métamorphose",
+                  "Cours Enchantements de mémoire",
+                  "Cours Sortilèges Impardonnables (théorie)",
+                  "Cours Contresorts",
+                  "Cours Enchantements de protection",
+                  "TD Enchantements",
+                  "TP Enchantements supervisés"
+                ]
+              },
+              {
+                "name": "Magie sans baguette",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Magie informulée",
+                  "Cours Magie instinctive",
+                  "Cours Occlumencie fondamentale",
+                  "Cours Legilimencie (initiation)",
+                  "TD Magie sans baguette"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Potions",
+            "sub_ues": [
+              {
+                "name": "Potions élémentaires",
+                "weight": 2.5,
+                "courses": [
+                  "Cours Potions de soin",
+                  "Cours Potions de sommeil",
+                  "Cours Potions de chance (Felix Felicis)",
+                  "Cours Élixirs de base",
+                  "Cours Antidotes courants",
+                  "TD Potions élémentaires",
+                  "TP Brassage supervisé"
+                ]
+              },
+              {
+                "name": "Potions avancées",
+                "weight": 2,
+                "courses": [
+                  "Cours Polynectar",
+                  "Cours Veritaserum",
+                  "Cours Potions de régénération",
+                  "Cours Poisons et antidotes avancés",
+                  "Cours Amortentia (théorie)",
+                  "TD Potions avancées",
+                  "TP Brassage complexe"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Métamorphose",
+            "sub_ues": [
+              {
+                "name": "Métamorphose élémentaire",
+                "weight": 2.5,
+                "courses": [
+                  "Cours Transformation d'objets",
+                  "Cours Disparition et apparition",
+                  "Cours Permutation",
+                  "Cours Conjuration élémentaire",
+                  "TD Métamorphose",
+                  "TP Métamorphose pratique"
+                ]
+              },
+              {
+                "name": "Métamorphose humaine",
+                "weight": 2,
+                "courses": [
+                  "Cours Animagus (théorie)",
+                  "Cours Métamorphomage",
+                  "Cours Transformation partielle",
+                  "Cours Auto-métamorphose",
+                  "TD Métamorphose humaine",
+                  "TP Métamorphose supervisée"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Défense contre les Forces du Mal",
+            "sub_ues": [
+              {
+                "name": "Créatures des ténèbres",
+                "weight": 2.5,
+                "courses": [
+                  "Cours Détraqueurs et Patronus",
+                  "Cours Loups-garous et vampires",
+                  "Cours Épouvantards et Riddikulus",
+                  "Cours Inferis et spectres",
+                  "Cours Basilics et serpents magiques",
+                  "TD Créatures obscures",
+                  "TP Combat anti-créatures"
+                ]
+              },
+              {
+                "name": "Magie noire (défense)",
+                "weight": 2,
+                "courses": [
+                  "Cours Maléfices et contre-maléfices",
+                  "Cours Objets maudits",
+                  "Cours Horcruxes (théorie)",
+                  "Cours Magie noire historique",
+                  "TD Défense appliquée",
+                  "TP Duels de défense"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Transversales magiques",
+            "sub_ues": [
+              {
+                "name": "Histoire de la Magie",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Guerres des Gobelins",
+                  "Cours Procès de sorcières",
+                  "Cours Statut du Secret",
+                  "Cours Fondateurs de Poudlard",
+                  "Cours Histoire du Ministère"
+                ]
+              },
+              {
+                "name": "Astronomie et Divination",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Cartographie céleste",
+                  "Cours Lecture des astres",
+                  "Cours Boule de cristal",
+                  "Cours Feuilles de thé",
+                  "TD Astronomie pratique"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "poudlard_master": {
+        "ues": [
+          {
+            "name": "Recherche en Magie Avancée",
+            "sub_ues": [
+              {
+                "name": "Magie expérimentale",
+                "weight": 3,
+                "courses": [
+                  "Cours Création de sortilèges",
+                  "Cours Fusion de magies",
+                  "Cours Limites de la magie",
+                  "Cours Magie élémentaire avancée",
+                  "Projet recherche magique",
+                  "TP Expérimentation supervisée"
+                ]
+              },
+              {
+                "name": "Théorie magique fondamentale",
+                "weight": 2.5,
+                "courses": [
+                  "Cours Lois fondamentales de la magie",
+                  "Cours Exceptions de Gamp",
+                  "Cours Magie ancienne",
+                  "Cours Liens magiques et serments",
+                  "TD Théorie magique"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Spécialisations du Ministère",
+            "sub_ues": [
+              {
+                "name": "Auror — Formation avancée",
+                "weight": 3,
+                "courses": [
+                  "Cours Filature et dissimulation",
+                  "Cours Interrogatoire magique",
+                  "Cours Combat en situation réelle",
+                  "Cours Droit magique pénal",
+                  "Cours Procédures du Ministère",
+                  "TP Simulations d'intervention"
+                ]
+              },
+              {
+                "name": "Médicomagie",
+                "weight": 2.5,
+                "courses": [
+                  "Cours Diagnostic magique",
+                  "Cours Guérison des maléfices",
+                  "Cours Potions médicinales avancées",
+                  "Cours Empoisonnements et morsures",
+                  "Cours Maladies magiques",
+                  "TP Stage Ste Mangouste"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Étude des Moldus",
+            "sub_ues": [
+              {
+                "name": "Civilisation moldue",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Technologie moldue",
+                  "Cours Société moldue contemporaine",
+                  "Cours Électricité (découverte)",
+                  "Cours Relations sorciers-moldus"
+                ]
+              },
+              {
+                "name": "Adaptation et intégration",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Passer inaperçu",
+                  "Cours Monnaie et économie moldue",
+                  "Cours Transports moldus",
+                  "Projet immersion moldue"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "poudlard_stage": {
+        "ues": [
+          {
+            "name": "Stage professionnel",
+            "sub_ues": [
+              {
+                "name": "Préparation au stage",
+                "weight": 2,
+                "courses": [
+                  "Cours Rédaction de parchemin de candidature",
+                  "Cours Entretien avec le Maître de stage",
+                  "Cours Éthique professionnelle magique",
+                  "Cours Serment de confidentialité"
+                ]
+              },
+              {
+                "name": "Pratique en milieu magique",
+                "weight": 3,
+                "courses": [
+                  "Stage Ministère de la Magie",
+                  "Stage Gringotts",
+                  "Stage Ste Mangouste",
+                  "Stage Chemin de Traverse",
+                  "Rapport de stage magique",
+                  "Soutenance devant le jury"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "poudlard_prepa": {
+        "ues": [
+          {
+            "name": "Initiation à la Magie",
+            "sub_ues": [
+              {
+                "name": "Premiers sortilèges",
+                "weight": 2.5,
+                "courses": [
+                  "Cours Lumos et Nox",
+                  "Cours Wingardium Leviosa",
+                  "Cours Alohomora",
+                  "Cours Reparo",
+                  "Cours Nettoyage magique",
+                  "TD Baguette — premiers gestes",
+                  "TP Sortilèges dirigés"
+                ]
+              },
+              {
+                "name": "Potions — Niveau découverte",
+                "weight": 2,
+                "courses": [
+                  "Cours Potion Cure-Furoncle",
+                  "Cours Philtre de Paix",
+                  "Cours Herbicide magique",
+                  "Cours Règles de sécurité en cachot",
+                  "TD Potions simples",
+                  "TP Brassage d'initiation"
+                ]
+              },
+              {
+                "name": "Vol sur balai",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Appel du balai",
+                  "Cours Décollage et atterrissage",
+                  "Cours Manœuvres de base",
+                  "Cours Sécurité aérienne",
+                  "TP Vol supervisé"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Culture du Monde Magique",
+            "sub_ues": [
+              {
+                "name": "Histoire de la Magie (initiation)",
+                "weight": 2,
+                "courses": [
+                  "Cours Fondateurs de Poudlard",
+                  "Cours Code International du Secret Magique",
+                  "Cours Grandes batailles sorcières",
+                  "Cours Personnalités marquantes",
+                  "Cours Confédération Internationale des Sorciers"
+                ]
+              },
+              {
+                "name": "Vie et coutumes sorcières",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Monnaie sorcière (Gallions, Mornilles, Noises)",
+                  "Cours Transports magiques (Poudre de Cheminette, Portoloin, Transplanage)",
+                  "Cours Le Ministère de la Magie",
+                  "Cours La Gazette du Sorcier"
+                ]
+              },
+              {
+                "name": "Botanique — Découverte",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Plantes magiques inoffensives",
+                  "Cours Mandragore (théorie)",
+                  "Cours Dictame et plantes curatives",
+                  "TD Serres niveau 1"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "poudlard_quidditch": {
+        "ues": [
+          {
+            "name": "Quidditch — Entraînement intensif",
+            "sub_ues": [
+              {
+                "name": "Postes et tactiques",
+                "weight": 3,
+                "courses": [
+                  "Cours Attrapeur — Techniques de capture du Vif d'Or",
+                  "Cours Poursuiveur — Passes et tirs",
+                  "Cours Gardien — Défense des anneaux",
+                  "Cours Batteur — Maniement des Cognards",
+                  "TD Stratégies d'équipe",
+                  "TD Analyse de matchs historiques",
+                  "TP Match d'entraînement"
+                ]
+              },
+              {
+                "name": "Condition physique magique",
+                "weight": 2,
+                "courses": [
+                  "Cours Endurance en vol longue durée",
+                  "Cours Réflexes magiques",
+                  "Cours Aérodynamique sur balai",
+                  "Cours Résistance aux intempéries",
+                  "TP Circuit d'obstacles aériens"
+                ]
+              },
+              {
+                "name": "Réglementation et arbitrage",
+                "weight": 1.5,
+                "courses": [
+                  "Cours Règles officielles de la Ligue",
+                  "Cours Fautes et pénalités",
+                  "Cours Histoire de la Coupe du Monde",
+                  "Cours Rôle de l'arbitre"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Sports magiques complémentaires",
+            "sub_ues": [
+              {
+                "name": "Courses de balais",
+                "weight": 2,
+                "courses": [
+                  "Cours Slalom en forêt",
+                  "Cours Course de vitesse",
+                  "Cours Relais aérien",
+                  "Cours Entretien et personnalisation du balai",
+                  "TP Course chronométrée"
+                ]
+              },
+              {
+                "name": "Duels sportifs",
+                "weight": 2,
+                "courses": [
+                  "Cours Club de Duel — Fondamentaux",
+                  "Cours Sortilèges de compétition",
+                  "Cours Parade et riposte",
+                  "Cours Étiquette du duel",
+                  "Atelier Tournoi inter-maisons"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "seeder": {
+    "enrolled_pct": 90,
+    "formulas_per_campus": null,
+    "avg_discounts": 2,
+    "formations_per_formula": 1,
+    "formation_hours_min": 100,
+    "formation_hours_max": 1200,
+    "module_coverage_pct": 100,
+    "sequence_coverage_pct": 100,
+    "sequence_publish_pct": 100,
+    "scores_per_formation": 5,
+    "include_compound_scores": true,
+    "include_report_cards": true,
+    "include_calendars": true,
+    "include_avatars": true,
+    "include_degrees": true,
+    "absence_rate_pct": 8,
+    "delay_rate_pct": 5,
+    "n_companies": 1
+  }
+}

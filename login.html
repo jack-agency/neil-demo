@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion — Neil Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async></script>
+<style>
+:root {
+  --white: #ffffff;
+  --gray-50: #fafafa;
+  --gray-200: #e5e5e5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-900: #171717;
+  --green: #3a786c;
+  --green-light: #e8f5f1;
+  --green-border: #c4e0d8;
+  --red: #b33a3a;
+  --red-light: #fde8e8;
+  --red-border: #ecc6c6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-900);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  padding: 48px 40px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.login-logo { height: 32px; margin-bottom: 24px; }
+.login-title { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+.login-sub { font-size: 13px; color: var(--gray-500); margin-bottom: 32px; line-height: 1.5; }
+.login-domain {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--green-light); border: 1px solid var(--green-border);
+  color: var(--green); font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 24px;
+}
+.g_id_signin { display: inline-block; }
+.login-error {
+  display: none;
+  background: var(--red-light); border: 1px solid var(--red-border);
+  color: var(--red); font-size: 12px; font-weight: 500;
+  padding: 10px 14px; border-radius: 8px; margin-top: 20px;
+  line-height: 1.5;
+}
+.login-error.visible { display: block; }
+.login-footer {
+  margin-top: 32px; font-size: 11px; color: var(--gray-400);
+}
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <img class="login-logo" src="https://neil.app/lovable-uploads/92a600f8-dafb-431d-9240-1c537f06e250.png" alt="Neil">
+  <h1 class="login-title">Guide de démonstration</h1>
+  <p class="login-sub">Connectez-vous avec votre compte Neil pour accéder au guide de démo prospect.</p>
+  <div class="login-domain">🔒 Réservé aux comptes @neil.app</div>
+
+  <div id="g_id_onload"
+       data-client_id="{{GOOGLE_CLIENT_ID}}"
+       data-callback="handleCredentialResponse"
+       data-auto_prompt="false">
+  </div>
+  <div class="g_id_signin"
+       data-type="standard"
+       data-shape="rectangular"
+       data-theme="outline"
+       data-text="signin_with"
+       data-size="large"
+       data-logo_alignment="left"
+       data-locale="fr">
+  </div>
+
+  <div class="login-error" id="loginError"></div>
+
+  <div class="login-footer">Neil ERP — usage interne uniquement</div>
+</div>
+
+<script>
+function handleCredentialResponse(response) {
+  const errorEl = document.getElementById('loginError');
+  errorEl.classList.remove('visible');
+
+  fetch('/auth/google', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ credential: response.credential })
+  })
+  .then(r => r.json().then(data => ({ status: r.status, data })))
+  .then(({ status, data }) => {
+    if (data.ok) {
+      window.location.href = '/';
+    } else {
+      errorEl.textContent = data.error || 'Accès refusé';
+      errorEl.classList.add('visible');
+    }
+  })
+  .catch(() => {
+    errorEl.textContent = 'Impossible de contacter le serveur';
+    errorEl.classList.add('visible');
+  });
+}
+</script>
+
+</body>
+</html>
