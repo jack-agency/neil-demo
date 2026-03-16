@@ -10,7 +10,7 @@ nav {
 .nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0; }
 .nav-logo img { height: 26px; }
 .nav-sep { width: 1px; height: 18px; background: var(--gray-200); }
-.nav-title { font-size: 15px; font-weight: 600; color: var(--gray-500); }
+.nav-title { font-size: 16px; font-weight: 600; color: var(--gray-500); }
 .nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
 .nav-badge {
   display: inline-flex; align-items: center; gap: 5px;
@@ -58,8 +58,8 @@ main { flex: 1; min-width: 0; max-width: 900px; padding: 32px 40px 80px; }
 
 /* PAGE HEADER */
 .page-header { margin-bottom: 36px; }
-.page-header h1 { font-size: 26px; font-weight: 800; margin-bottom: 8px; }
-.page-header p { font-size: 16px; color: var(--gray-500); line-height: 1.65; max-width: 620px; }
+.page-header h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+.page-header p { font-size: 17px; color: var(--gray-500); line-height: 1.65; max-width: 620px; }
 .page-header .meta { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
 
 /* RESPONSIVE */

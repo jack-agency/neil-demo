@@ -1,3 +1,3 @@
 /* Reset & base */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Inter', system-ui, sans-serif; background: var(--white); color: var(--gray-900); font-size: 16px; line-height: 1.6; }
+body { font-family: 'Inter', system-ui, sans-serif; background: var(--white); color: var(--gray-900); font-size: 18px; line-height: 1.65; }

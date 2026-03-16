@@ -1,12 +1,16 @@
-"""Génère la fiche mémo A4 portrait pour le CSM pendant la démo prospect Neil."""
+"""Génère la fiche mémo A4 portrait pour le CSM pendant la démo prospect Neil.
+
+Layout optimisé : bandeau prep/légende horizontal + 2 colonnes à hauteur variable.
+Texte lisible (8pt body, 9pt titres).
+"""
 
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
 from reportlab.lib.colors import HexColor, white
 from reportlab.pdfgen import canvas
 
-W, H = A4  # 210 x 297 mm portrait
-MARGIN = 10 * mm
+W, H = A4
+MARGIN = 8 * mm
 
 # Neil brand colors
 GREEN = HexColor("#3a786c")
@@ -28,6 +32,17 @@ GRAY200 = HexColor("#e5e5e5")
 GRAY400 = HexColor("#a3a3a3")
 GRAY500 = HexColor("#737373")
 GRAY900 = HexColor("#171717")
+
+# Sizing
+LINE_H = 10
+HEADER_H = 16
+BLOCK_PAD_TOP = 8
+BLOCK_PAD_BOTTOM = 5
+COL_GAP = 5
+FONT_BODY = 7.5
+FONT_SMALL = 7
+FONT_TITLE = 8.5
+FONT_TIMING = 7
 
 
 def rounded_rect(c, x, y, w, h, r, fill=None, stroke=None):
@@ -51,102 +66,175 @@ def rounded_rect(c, x, y, w, h, r, fill=None, stroke=None):
     c.restoreState()
 
 
+def calc_block_height(items):
+    content_lines = 0
+    empty_gaps = 0
+    for item in items:
+        if not item:
+            empty_gaps += 1
+        else:
+            content_lines += 1
+    return HEADER_H + BLOCK_PAD_TOP + content_lines * LINE_H + empty_gaps * 4 + BLOCK_PAD_BOTTOM
+
+
+def draw_item(c, text_x, text_y, item, max_w):
+    if item.startswith("WOW:"):
+        c.setFillColor(GREEN)
+        c.setFont("Helvetica-Bold", FONT_SMALL)
+        c.drawString(text_x, text_y, "✨ " + item[4:].strip())
+    elif item.startswith("SAY:"):
+        c.setFillColor(PURPLE)
+        c.setFont("Helvetica-Oblique", FONT_SMALL)
+        text = item[4:].strip()
+        if c.stringWidth(text, "Helvetica-Oblique", FONT_SMALL) > max_w - 14:
+            text = text[:int((max_w - 14) / 3.5)] + "…"
+        c.drawString(text_x + 2, text_y, "🎤 " + text)
+    elif item.startswith("NAV:"):
+        c.setFillColor(GRAY400)
+        c.setFont("Helvetica", FONT_SMALL)
+        c.drawString(text_x, text_y, "→ " + item[4:].strip())
+    elif item.startswith("•"):
+        c.setFillColor(GRAY900)
+        c.setFont("Helvetica", FONT_BODY)
+        c.drawString(text_x, text_y, item)
+    else:
+        c.setFillColor(GRAY500)
+        c.setFont("Helvetica", FONT_BODY)
+        c.drawString(text_x, text_y, item)
+    c.setFont("Helvetica", FONT_BODY)
+
+
 def draw_section_block(c, x, y, w, h, num, title, timing, color, color_light, items):
     # Background
-    rounded_rect(c, x, y, w, h, 4, fill=white, stroke=GRAY200)
+    rounded_rect(c, x, y, w, h, 5, fill=white, stroke=GRAY200)
 
     # Header bar
-    header_h = 14
-    rounded_rect(c, x, y + h - header_h, w, header_h, 4, fill=color_light)
+    rounded_rect(c, x, y + h - HEADER_H, w, HEADER_H, 5, fill=color_light)
     c.setFillColor(color_light)
-    c.rect(x, y + h - header_h, w, 6, fill=1, stroke=0)
+    c.rect(x, y + h - HEADER_H, w, 6, fill=1, stroke=0)
     c.setStrokeColor(GRAY200)
     c.setLineWidth(0.3)
-    c.line(x, y + h - header_h, x + w, y + h - header_h)
+    c.line(x, y + h - HEADER_H, x + w, y + h - HEADER_H)
 
-    # Section number circle
-    circle_r = 5
-    cx_pos = x + 10
-    cy_pos = y + h - header_h / 2
+    # Number circle
+    cx_pos = x + 11
+    cy_pos = y + h - HEADER_H / 2
     c.setFillColor(color)
-    c.circle(cx_pos, cy_pos, circle_r, fill=1, stroke=0)
+    c.circle(cx_pos, cy_pos, 5.5, fill=1, stroke=0)
     c.setFillColor(white)
-    c.setFont("Helvetica-Bold", 7)
-    c.drawCentredString(cx_pos, cy_pos - 2.5, str(num))
+    c.setFont("Helvetica-Bold", 8)
+    c.drawCentredString(cx_pos, cy_pos - 2.8, str(num))
 
     # Title
     c.setFillColor(GRAY900)
-    c.setFont("Helvetica-Bold", 7.5)
-    c.drawString(x + 20, cy_pos - 2.5, title)
+    c.setFont("Helvetica-Bold", FONT_TITLE)
+    c.drawString(x + 22, cy_pos - 3, title)
 
     # Timing badge
-    c.setFillColor(color)
-    c.setFont("Helvetica-Bold", 6)
-    tw = c.stringWidth(timing, "Helvetica-Bold", 6) + 8
-    rounded_rect(c, x + w - tw - 4, cy_pos - 4.5, tw, 9, 3, fill=color_light)
+    c.setFont("Helvetica-Bold", FONT_TIMING)
+    tw = c.stringWidth(timing, "Helvetica-Bold", FONT_TIMING) + 10
+    rounded_rect(c, x + w - tw - 4, cy_pos - 5, tw, 10, 4, fill=color_light)
     c.setFillColor(color)
     c.drawString(x + w - tw, cy_pos - 2.5, timing)
 
     # Items
-    text_x = x + 6
-    text_y = y + h - header_h - 9
-    c.setFont("Helvetica", 6)
-    line_h = 7.5
+    text_x = x + 7
+    text_y = y + h - HEADER_H - BLOCK_PAD_TOP
+    max_w = w - 14
 
     for item in items:
         if text_y < y + 3:
             break
         if not item:
-            text_y -= 3
+            text_y -= 4
             continue
-        if item.startswith("WOW:"):
-            c.setFillColor(GREEN)
-            c.setFont("Helvetica-Bold", 5.5)
-            c.drawString(text_x, text_y, "✨ " + item[4:].strip())
-            c.setFont("Helvetica", 6)
-        elif item.startswith("SAY:"):
-            c.setFillColor(PURPLE)
-            c.setFont("Helvetica-Oblique", 5.5)
-            text = item[4:].strip()
-            max_w = w - 12
-            if c.stringWidth(text, "Helvetica-Oblique", 5.5) > max_w:
-                text = text[:int(max_w / 3.2)] + "…"
-            c.drawString(text_x + 2, text_y, "🎤 " + text)
-            c.setFont("Helvetica", 6)
-        elif item.startswith("NAV:"):
-            c.setFillColor(GRAY400)
-            c.setFont("Helvetica", 5.5)
-            c.drawString(text_x, text_y, "→ " + item[4:].strip())
-            c.setFont("Helvetica", 6)
-        elif item.startswith("•"):
-            c.setFillColor(GRAY900)
-            c.drawString(text_x, text_y, item)
-        else:
-            c.setFillColor(GRAY500)
-            c.drawString(text_x, text_y, item)
-        text_y -= line_h
+        draw_item(c, text_x, text_y, item, max_w)
+        text_y -= LINE_H
     c.setFillColor(GRAY900)
 
 
 def build_pdf(output_path):
     c = canvas.Canvas(output_path, pagesize=A4)
 
-    # Background
     c.setFillColor(white)
     c.rect(0, 0, W, H, fill=1, stroke=0)
 
-    # Top bar
+    # ── Top bar ──
     bar_h = 20
     rounded_rect(c, 0, H - bar_h, W, bar_h, 0, fill=GREEN)
     c.setFillColor(white)
-    c.setFont("Helvetica-Bold", 10)
+    c.setFont("Helvetica-Bold", 11)
     c.drawString(MARGIN, H - 14, "NEIL — Fiche mémo démo prospect")
-    c.setFont("Helvetica", 7)
-    c.drawRightString(W - MARGIN, H - 11, "60 min · Dataset Poudlard · Visio")
-    c.setFont("Helvetica", 5.5)
-    c.drawRightString(W - MARGIN, H - 18, "Usage interne @neil.app")
+    c.setFont("Helvetica", 7.5)
+    c.drawRightString(W - MARGIN, H - 12, "60 min · Dataset Poudlard · Visio")
+    c.setFont("Helvetica", 6)
+    c.drawRightString(W - MARGIN, H - 18.5, "Usage interne @neil.app")
 
-    # Sections data
+    # ── Prep + Legend strip ──
+    strip_top = H - bar_h - 3
+    strip_h = 52
+    strip_y = strip_top - strip_h
+    usable_w = W - 2 * MARGIN
+
+    # Prep block (left 55%)
+    prep_w = usable_w * 0.57
+    rounded_rect(c, MARGIN, strip_y, prep_w, strip_h, 5, fill=GRAY50, stroke=GRAY200)
+
+    ph_h = 14
+    rounded_rect(c, MARGIN, strip_y + strip_h - ph_h, prep_w, ph_h, 5, fill=GRAY200)
+    c.setFillColor(GRAY200)
+    c.rect(MARGIN, strip_y + strip_h - ph_h, prep_w, 5, fill=1, stroke=0)
+    c.setStrokeColor(GRAY200)
+    c.setLineWidth(0.3)
+    c.line(MARGIN, strip_y + strip_h - ph_h, MARGIN + prep_w, strip_y + strip_h - ph_h)
+
+    c.setFillColor(GRAY500)
+    c.setFont("Helvetica-Bold", 8)
+    c.drawString(MARGIN + 6, strip_y + strip_h - ph_h / 2 - 2.8, "⚙  Préparation — avant la démo")
+
+    prep_items = [
+        "• Lancer le seeder Poudlard",
+        "• Vérifier Harry dans Étudiants",
+        "• Planning rempli avec séances",
+        "• Notes et bulletins générés",
+        "• Espace étudiant activable",
+    ]
+    ty = strip_y + strip_h - ph_h - 9
+    c.setFont("Helvetica", 7)
+    c.setFillColor(GRAY900)
+    for item in prep_items:
+        c.drawString(MARGIN + 7, ty, item)
+        ty -= 7
+
+    # Legend block (right 43%)
+    leg_x = MARGIN + prep_w + COL_GAP
+    leg_w = usable_w - prep_w - COL_GAP
+    rounded_rect(c, leg_x, strip_y, leg_w, strip_h, 5, fill=GRAY50, stroke=GRAY200)
+
+    rounded_rect(c, leg_x, strip_y + strip_h - ph_h, leg_w, ph_h, 5, fill=GRAY200)
+    c.setFillColor(GRAY200)
+    c.rect(leg_x, strip_y + strip_h - ph_h, leg_w, 5, fill=1, stroke=0)
+    c.setStrokeColor(GRAY200)
+    c.line(leg_x, strip_y + strip_h - ph_h, leg_x + leg_w, strip_y + strip_h - ph_h)
+
+    c.setFillColor(GRAY500)
+    c.setFont("Helvetica-Bold", 8)
+    c.drawString(leg_x + 6, strip_y + strip_h - ph_h / 2 - 2.8, "Légende")
+
+    legend = [
+        (GRAY400, "→  Navigation dans Neil"),
+        (PURPLE, "🎤 Phrase à prononcer"),
+        (GREEN, "✨ Effet WOW à souligner"),
+        (GRAY900, "•  Action / point clé"),
+    ]
+    ty = strip_y + strip_h - ph_h - 10
+    for clr, text in legend:
+        c.setFillColor(clr)
+        c.setFont("Helvetica", 7.5)
+        c.drawString(leg_x + 7, ty, text)
+        ty -= 8.5
+
+    # ── Sections data ──
     sections = [
         {
             "num": "0", "title": "Accroche", "timing": "5 min",
@@ -172,9 +260,9 @@ def build_pdf(output_path):
                 "• Hiérarchie : École > Campus > Société",
                 "",
                 "• FORMULE = offre commerciale (prix)",
-                "• FORMATION = programme pédago (UE, modules)",
+                "• FORMATION = programme pédago",
                 "• La Formule fait le pont",
-                "SAY:Même programme vendu en initiale ET apprentissage",
+                "SAY:Même prog. vendu initiale ET apprentissage",
             ]
         },
         {
@@ -200,7 +288,7 @@ def build_pdf(output_path):
                 "NAV:Pédagogie > Formations > Master Magie",
                 "• Classes : ensembles (Maisons × 4)",
                 "• UE / Modules : drag & drop, réutilisables",
-                "• Module = quoi / Séance = quand + pour qui",
+                "• Module = quoi / Séance = quand + qui",
                 "NAV:Module > Documents étudiants",
                 "WOW:Vidéo encodée dans Neil, sans limite",
                 "NAV:+ Ajouter séance (salle, visio, brouillon)",
@@ -235,7 +323,7 @@ def build_pdf(output_path):
             ]
         },
         {
-            "num": "6", "title": "Conclusion", "timing": "3 min",
+            "num": "6", "title": "Conclusion & Qualification", "timing": "3 min",
             "color": RED, "color_light": RED_LIGHT,
             "items": [
                 "• Quelle partie vous parle le plus ?",
@@ -253,97 +341,39 @@ def build_pdf(output_path):
         },
     ]
 
-    # Layout: 2 columns, 4 rows
-    content_top = H - bar_h - 5
-    content_bottom = MARGIN - 2
-    content_h = content_top - content_bottom
+    # ── Flowing 2-column layout ──
+    content_top = strip_y - 4
+    content_bottom = MARGIN
+    col_w = (usable_w - COL_GAP) / 2
 
-    cols = 2
-    rows = 4
-    col_gap = 5
-    row_gap = 4
-    usable_w = W - 2 * MARGIN
-    col_w = (usable_w - (cols - 1) * col_gap) / cols
-    row_h = (content_h - (rows - 1) * row_gap) / rows
+    col_y = [content_top, content_top]
 
-    positions = []
-    for row in range(rows):
-        for col in range(cols):
-            x = MARGIN + col * (col_w + col_gap)
-            y = content_top - (row + 1) * row_h - row * row_gap
-            positions.append((x, y, col_w, row_h))
+    for sec in sections:
+        h = calc_block_height(sec["items"])
 
-    # Prep block (position 0)
-    prep_x, prep_y, prep_w, prep_h = positions[0]
-    rounded_rect(c, prep_x, prep_y, prep_w, prep_h, 4, fill=GRAY50, stroke=GRAY200)
-
-    ph_h = 14
-    rounded_rect(c, prep_x, prep_y + prep_h - ph_h, prep_w, ph_h, 4, fill=GRAY200)
-    c.setFillColor(GRAY200)
-    c.rect(prep_x, prep_y + prep_h - ph_h, prep_w, 6, fill=1, stroke=0)
-    c.setStrokeColor(GRAY200)
-    c.setLineWidth(0.3)
-    c.line(prep_x, prep_y + prep_h - ph_h, prep_x + prep_w, prep_y + prep_h - ph_h)
-
-    c.setFillColor(GRAY500)
-    c.setFont("Helvetica-Bold", 7.5)
-    c.drawString(prep_x + 6, prep_y + prep_h - ph_h / 2 - 2.5, "⚙  Préparation")
-    c.setFont("Helvetica-Bold", 6)
-    c.setFillColor(GRAY400)
-    rounded_rect(c, prep_x + prep_w - 55, prep_y + prep_h - ph_h / 2 - 4.5, 50, 9, 3, fill=white)
-    c.drawString(prep_x + prep_w - 50, prep_y + prep_h - ph_h / 2 - 2.5, "Avant démo")
-
-    prep_items = [
-        "• Lancer le seeder Poudlard",
-        "• Vérifier Harry dans Étudiants",
-        "• Planning rempli avec séances",
-        "• Notes et bulletins générés",
-        "• Espace étudiant activable",
-        "",
-        "LÉGENDE :",
-        "→  Navigation dans Neil",
-        "🎤 Phrase à prononcer",
-        "✨ Effet WOW à souligner",
-        "•  Action / point clé",
-    ]
-    ty = prep_y + prep_h - ph_h - 9
-    c.setFont("Helvetica", 6)
-    for item in prep_items:
-        if ty < prep_y + 3:
-            break
-        if not item:
-            ty -= 3
-            continue
-        if item == "LÉGENDE :":
-            c.setFillColor(GRAY900)
-            c.setFont("Helvetica-Bold", 6)
-            c.drawString(prep_x + 6, ty, item)
-            c.setFont("Helvetica", 6)
-        elif item.startswith("→"):
-            c.setFillColor(GRAY400)
-            c.drawString(prep_x + 6, ty, item)
-        elif item.startswith("🎤"):
-            c.setFillColor(PURPLE)
-            c.drawString(prep_x + 6, ty, item)
-        elif item.startswith("✨"):
-            c.setFillColor(GREEN)
-            c.drawString(prep_x + 6, ty, item)
+        # Pick column with more remaining space
+        if col_y[0] >= col_y[1]:
+            col = 0
         else:
-            c.setFillColor(GRAY900)
-            c.drawString(prep_x + 6, ty, item)
-        ty -= 7.5
+            col = 1
 
-    # Draw 7 section blocks in positions 1-7
-    for i, sec in enumerate(sections):
-        pos_idx = i + 1
-        if pos_idx >= len(positions):
-            break
-        x, y, w, h = positions[pos_idx]
+        if col_y[col] - h < content_bottom:
+            other = 1 - col
+            if col_y[other] - h >= content_bottom:
+                col = other
+            else:
+                continue
+
+        x = MARGIN + col * (col_w + COL_GAP)
+        block_y = col_y[col] - h
+
         draw_section_block(
-            c, x, y, w, h,
+            c, x, block_y, col_w, h,
             sec["num"], sec["title"], sec["timing"],
             sec["color"], sec["color_light"], sec["items"]
         )
+
+        col_y[col] = block_y - 4
 
     c.save()
     print(f"PDF generated: {output_path}")
