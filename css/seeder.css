@@ -1,0 +1,57 @@
+/* SEEDER UI */
+.seeder-config { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.seeder-field { display: flex; flex-direction: column; gap: 4px; }
+.seeder-field label { font-size: 11px; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; }
+.seeder-field input {
+  font-family: 'Inter', monospace; font-size: 12px; padding: 8px 12px;
+  border: 1px solid var(--gray-200); border-radius: 8px; background: var(--gray-50);
+  color: var(--gray-900); outline: none; transition: border-color 0.15s;
+}
+.seeder-field input:focus { border-color: var(--green); background: var(--white); }
+.seeder-actions { display: flex; gap: 8px; margin-bottom: 16px; }
+.seeder-btn {
+  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+  padding: 8px 18px; border-radius: 8px; border: 1px solid;
+  cursor: pointer; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px;
+}
+.seeder-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.seeder-btn-primary { background: var(--green); color: var(--white); border-color: var(--green); }
+.seeder-btn-primary:hover:not(:disabled) { opacity: 0.85; }
+.seeder-btn-danger { background: var(--white); color: var(--red); border-color: var(--red-border); }
+.seeder-btn-danger:hover:not(:disabled) { background: var(--red-light); }
+.seeder-btn-secondary { background: var(--white); color: var(--gray-500); border-color: var(--gray-200); }
+.seeder-btn-secondary:hover:not(:disabled) { background: var(--gray-50); color: var(--gray-900); }
+
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.seeder-desc { font-size: 12px; color: var(--gray-400); line-height: 1.55; margin-bottom: 14px; }
+
+.seeder-progress-bar {
+  height: 4px; background: var(--gray-200); border-radius: 2px;
+  margin-bottom: 14px; overflow: hidden;
+}
+.seeder-progress-fill {
+  height: 100%; background: var(--green); border-radius: 2px;
+  transition: width 0.3s ease; width: 0%;
+}
+.seeder-progress-fill.running { background: var(--blue); }
+
+.seeder-console {
+  background: var(--gray-900); border-radius: 10px; padding: 12px 14px;
+  font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px;
+  color: #a3e635; line-height: 1.6; max-height: 200px; overflow-y: auto;
+  margin-bottom: 12px; display: none;
+}
+.seeder-console.visible { display: block; }
+.seeder-console::-webkit-scrollbar { width: 6px; }
+.seeder-console::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+.seeder-status {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; color: var(--gray-400);
+  margin-bottom: 14px;
+}
+.seeder-status-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--gray-300);
+}
+.seeder-status-dot.running { background: var(--blue); animation: pulse 1s infinite; }
+.seeder-status-dot.done { background: var(--green); }
+.seeder-status-dot.error { background: var(--red); }

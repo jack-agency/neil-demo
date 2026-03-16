@@ -1,0 +1,31 @@
+/* Design tokens — source unique pour toutes les pages */
+:root {
+  --white: #ffffff;
+  --gray-50: #fafafa;
+  --gray-200: #e5e5e5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-900: #171717;
+  --green: #3a786c;
+  --green-light: #e8f5f1;
+  --green-border: #c4e0d8;
+  --purple: #6b33b3;
+  --purple-light: #f3edfb;
+  --purple-border: #d8c8ee;
+  --orange: #b37a2a;
+  --orange-light: #fef6e8;
+  --orange-border: #eedcb4;
+  --blue: #3a6c96;
+  --blue-light: #eaf2f8;
+  --blue-border: #b8d4e8;
+  --red: #b33a3a;
+  --red-light: #fde8e8;
+  --red-border: #ecc6c6;
+  --finance: #2e7d52;
+  --finance-light: #e8f5ec;
+  --finance-border: #b8dcc6;
+  --pink: #b33a6b;
+  --pink-light: #fde8f5;
+  --pink-border: #eccce4;
+}
